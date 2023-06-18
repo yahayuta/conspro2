@@ -29,8 +29,6 @@ https://localhost:3443/
 https://localhost:3443/admin/  
 https://localhost:3443/conspro2/login/  
 
-Username:	dyq95yimdrocta60h5f4
-Password:	pscale_pw_4xErkQMyhr6gWlCaW4H2eP15x2Qtnt27noDoRxQ8Ulp
 
 
 
