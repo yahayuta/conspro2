@@ -1,0 +1,13 @@
+<form action="{% url 'logout' %}" method="get">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">CONSPRO2 こんにちは！{{user.last_name}}{{user.first_name}}さん</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="../top/">トップ</a>
+                </li>
+            </ul>
+            <input type="submit" value="ログアウト">
+        </div>
+    </nav>
+</form>
