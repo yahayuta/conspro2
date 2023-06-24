@@ -1,6 +1,7 @@
 from django.db import models
 from django_currentuser.db.models import CurrentUserField
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 # 状態
 CONDITION = (
@@ -68,6 +69,9 @@ class Inventory(models.Model):
     def __str__(self):
         return str(self.id) +':' + self.name
 
+    def get_absolute_url(self):
+        return reverse('inventory_list')
+    
     class Meta:
         verbose_name = "在庫"
         verbose_name_plural = "在庫"
