@@ -1,4 +1,10 @@
+import openpyxl
+import datetime
+import time
+
 from ..models import Inventory
+from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -132,3 +138,44 @@ class InventoryDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'inventory_edit.html'
     model = Inventory
     success_url = reverse_lazy('inventory_list')
+
+@login_required
+def download_ordersheet(request, id):
+    print(id)
+
+    inventory = Inventory.objects.get(pk=id)
+    company = inventory.company
+    print(company)
+
+    # Excelのテンプレートファイルの読み込み
+    wb = openpyxl.load_workbook('/django/main/static/tpl/OrderSheet.xlsx')
+
+    sheet = wb['注文書']
+    sheet['J1'] = id
+    sheet['J2'] = datetime.date.today()
+
+    sheet['K5'] = company.name
+    sheet['K6'] = f"〒 {str(company.zip)[0:3]}-{str(company.zip)[3:]}"
+    sheet['K7'] = company.address
+    sheet['K9'] = f"電話：{company.tel}　FAX：{company.fax}"
+
+    seller = inventory.seller
+
+    sheet['B5'] = seller.name + " 御中"
+    sheet['B7'] = f"〒 {str(seller.zip)[0:3]}-{str(seller.zip)[3:]}"
+    sheet['B8'] = seller.address
+    sheet['B10'] = sheet['K9'] = f"電話：{seller.tel}　FAX：{seller.fax}"
+
+    sheet['B23'] = inventory.name
+    sheet['B24'] = inventory.serial_no
+    sheet['H23'] = inventory.order_price
+
+    # Excelを返すためにcontent_typeに「application/vnd.ms-excel」をセットします。
+    response = HttpResponse(content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=%s' % str(inventory.name) + '_' + str(time.time()) + '.xlsx'
+
+    # データの書き込みを行なったExcelファイルを保存する
+    wb.save(response)
+
+    # 生成したHttpResponseをreturnする
+    return response
