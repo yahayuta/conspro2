@@ -14,6 +14,7 @@ class InventoryFilter(FilterSet):
 
     order_by = MyOrderingFilter(
         fields=(
+            ('company_id', 'company_id'),
             ('type_id', 'type_id'),
             ('manufacturer_id', 'manufacturer_id'),
             ('name', 'name'),
@@ -22,6 +23,7 @@ class InventoryFilter(FilterSet):
             ('hours', 'hours'),
         ),
         field_labels={
+            'company_id': '会社',
             'type_id': '機械分類',
             'manufacturer_id': 'メーカー',
             'name': '型式',
@@ -34,4 +36,4 @@ class InventoryFilter(FilterSet):
 
     class Meta:
         model = Inventory
-        fields = ('type_id', 'manufacturer_id', 'name', 'year', 'serial_no', 'hours', 'other_ja')
+        fields = ('company_id', 'type_id', 'manufacturer_id', 'name', 'year', 'serial_no', 'hours', 'other_ja')

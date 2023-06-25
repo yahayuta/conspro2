@@ -22,6 +22,7 @@ CONDITION_MAINTENANCE = (
 # Create your models here.
 class Inventory(models.Model):
     id = models.AutoField(verbose_name="会社ID", primary_key=True)
+    company = models.ForeignKey('Company', on_delete=models.SET_NULL, null=True, db_column='company_id', verbose_name="会社")
     name = models.CharField(verbose_name="型式/MODEL", max_length=256)
     price = models.IntegerField(verbose_name="表示価格/LIST PRICE",default=0)
     condition = models.CharField(verbose_name="程度/CONDITION RANK", choices=CONDITION, max_length=2, default='5')

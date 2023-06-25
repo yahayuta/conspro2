@@ -24,10 +24,20 @@
         <thead>
             <tr>
                 <th scope="col">在庫ID</th>
+                <th scope="col">売上月</th>
                 <th scope="col">分類</th>
                 <th scope="col">メーカー</th>
                 <th scope="col">型式</th>
                 <th scope="col">号機</th>
+                <th scope="col">登録日</th>
+                <th scope="col">会社</th>
+                <th scope="col">仕入担当</th>
+                <th scope="col">発注日</th>
+                <th scope="col">仕入先</th>
+                <th scope="col">仕入原価</th>
+                <th scope="col">仕入支払日</th>
+                <th scope="col">販売先</th>
+                <th scope="col">売上入金日</th>
                 <th scope="col">操作</th>
             </tr>
         </thead>
@@ -35,10 +45,20 @@
         {% for inventory in object_list %}
             <tr>
                 <td scope="row">{{ inventory.id }}</td>
+                <td>{{ inventory.sell_month }}</td>
                 <td>{{ inventory.type }}</td>
                 <td>{{ inventory.manufacturer }}</td>
                 <td>{{ inventory.name }}</td>
                 <td>{{ inventory.serial_no }}</td>
+                <td>{{ inventory.created }}</td>
+                <td>{{ inventory.company }}</td>
+                <td>{{ inventory.account }}</td>
+                <td>{{ inventory.order_date }}</td>
+                <td>{{ inventory.seller }}</td>
+                <td>{{ inventory.order_cost_price }}</td>
+                <td>{{ inventory.order_pay_date }}</td>
+                <td>{{ inventory.buyer }}</td>
+                <td>{{ inventory.sell_pay_date }}</td>
                 <td>
                     <a href="{% url 'inventory_edit' pk=inventory.pk %}" class="btn btn-primary">編集</a>
                     <a href="javascript:void(0);" onclick="deleteInventory('{% url 'inventory_delete' pk=inventory.pk %}')" class="btn btn-primary">削除</a>
