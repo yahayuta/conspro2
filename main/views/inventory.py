@@ -139,3 +139,9 @@ class InventoryDeleteView(LoginRequiredMixin, DeleteView):
 @login_required
 def download_ordersheet(request, id):
     return inventory_xls_handler.create_ordersheet(id)
+
+# 請求書出力
+@login_required
+def download_jpinvoice(request):
+    inventory_ids = request.POST.getlist('inventory_ids')
+    return inventory_xls_handler.create_jpinvoice(inventory_ids)

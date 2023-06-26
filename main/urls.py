@@ -11,4 +11,5 @@ urlpatterns = [
     path('inventory/edit/<int:pk>/', inventory.InventoryUpdateView.as_view(), name='inventory_edit'),
     path('inventory/delete/<int:pk>/', inventory.InventoryDeleteView.as_view(), name='inventory_delete'),
     path('inventory/download_ordersheet/<int:id>/', inventory.download_ordersheet, name='inventory_download_ordersheet'),
+    path('inventory/download_jpinvoice/', inventory.download_jpinvoice, name='inventory_download_ordersheet'),
 ]

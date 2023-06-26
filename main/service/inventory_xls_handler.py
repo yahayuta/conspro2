@@ -42,3 +42,34 @@ def create_ordersheet(inventory_id):
     wb.save(response)
 
     return response
+
+# 発注書出力
+def create_jpinvoice(inventory_ids):
+
+    # Excelのテンプレートファイルの読み込み
+    wb = openpyxl.load_workbook('/django/main/static/tpl/JpInvoice.xlsx')
+
+    sheet = wb['見積書']
+
+    for inventory_id in inventory_ids:
+        inventory = Inventory.objects.get(pk=inventory_id)
+        company = inventory.company
+        print(company)
+
+        sheet['K2'] = datetime.date.today()
+
+        sheet['L6'] = company.name
+        sheet['L7'] = f"〒 {str(company.zip)[0:3]}-{str(company.zip)[3:]}"
+        sheet['L8'] = company.address
+        sheet['L9'] = f"電話：{company.tel}"
+        sheet['L10'] = f"FAX：{company.fax}"
+
+
+    # Excelを返すためにcontent_typeに「application/vnd.ms-excel」をセットします。
+    response = HttpResponse(content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=invoice_' + str(time.time()) + '.xlsx'
+
+    # データの書き込みを行なったExcelファイルを保存する
+    wb.save(response)
+
+    return response
