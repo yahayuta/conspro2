@@ -64,6 +64,11 @@ def create_jpinvoice(inventory_ids):
         sheet['L9'] = f"電話：{company.tel}"
         sheet['L10'] = f"FAX：{company.fax}"
 
+        buyer = inventory.buyer
+        sheet['C2'] = f"〒 {str(buyer.zip)[0:3]}-{str(buyer.zip)[3:]}"
+        sheet['C3'] = buyer.address
+        sheet['C4'] = f"{buyer.name}　御中"
+        sheet['C5'] = f"{buyer.pic1}　様"
 
     # Excelを返すためにcontent_typeに「application/vnd.ms-excel」をセットします。
     response = HttpResponse(content_type='application/vnd.ms-excel')
