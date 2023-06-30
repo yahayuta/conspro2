@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from ..models import Inventory
 
 # 発注書出力
-def create_ordersheet(request, inventory_id):
+def create_ordersheet(inventory_id):
     inventory = Inventory.objects.get(pk=inventory_id)
     company = inventory.company
     print(company)
@@ -44,7 +44,7 @@ def create_ordersheet(request, inventory_id):
     return response
 
 # 発注書出力
-def create_jpinvoice(request, inventory_ids):
+def create_jpinvoice(inventory_ids):
 
     # Excelのテンプレートファイルの読み込み
     wb = openpyxl.load_workbook('/django/main/static/tpl/JpInvoice.xlsx')
