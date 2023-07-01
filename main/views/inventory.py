@@ -145,3 +145,9 @@ def download_ordersheet(request, id):
 def download_jpinvoice(request):
     inventory_ids = request.POST.getlist('inventory_ids')
     return inventory_xls_handler.create_jpinvoice(inventory_ids)
+
+# Proforma Invoice出力
+@login_required
+def download_proforma_invoice(request):
+    inventory_ids = request.POST.getlist('inventory_ids')
+    return
