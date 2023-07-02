@@ -150,4 +150,4 @@ def download_jpinvoice(request):
 @login_required
 def download_proforma_invoice(request):
     inventory_ids = request.POST.getlist('inventory_ids')
-    return
+    return inventory_xls_handler.create_proforma_invoice(inventory_ids)

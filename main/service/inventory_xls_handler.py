@@ -86,3 +86,32 @@ def create_jpinvoice(inventory_ids):
     wb.save(response)
 
     return response
+
+# Proforma Invoice出力
+def create_proforma_invoice(inventory_ids):
+    # Excelのテンプレートファイルの読み込み
+    wb = openpyxl.load_workbook('/django/main/static/tpl/ProformaInvoice.xlsx')
+
+    sheet = wb['Proforma']
+
+    for inventory_id in inventory_ids:
+        inventory = Inventory.objects.get(pk=inventory_id)
+        company = inventory.company
+        seller = inventory.seller
+        sheet['B1'] = company.name_en
+        sheet['B2'] = company.address_en
+        sheet['B3'] = f"TEL: {company.tel_en}   FAX: {company.fax_en}"
+
+        sheet['D7'] = f"{seller.name}"
+        sheet['D8'] = seller.address
+        sheet['D10'] = f"TEL: {seller.tel}"
+        sheet['F10'] = f"FAX: {seller.fax}"
+
+    # Excelを返すためにcontent_typeに「application/vnd.ms-excel」をセットします。
+    response = HttpResponse(content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=profprma_invoice_' + str(time.time()) + '.xlsx'
+
+    # データの書き込みを行なったExcelファイルを保存する
+    wb.save(response)
+
+    return response
