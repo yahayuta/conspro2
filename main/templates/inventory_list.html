@@ -48,21 +48,21 @@
         {% for inventory in object_list %}
             <tr>
                 <td scope="row"><input type="checkbox" name="inventory_ids" value="{{ inventory.id }}"/></td>
-                <td>{{ inventory.id }}</td>
-                <td>{{ inventory.sell_month }}</td>
-                <td>{{ inventory.type }}</td>
-                <td>{{ inventory.manufacturer }}</td>
-                <td>{{ inventory.name }}</td>
-                <td>{{ inventory.serial_no }}</td>
-                <td>{{ inventory.created }}</td>
-                <td>{{ inventory.company }}</td>
-                <td>{{ inventory.account }}</td>
-                <td>{{ inventory.order_date }}</td>
-                <td>{{ inventory.seller }}</td>
-                <td>{{ inventory.order_cost_price }}</td>
-                <td>{{ inventory.order_pay_date }}</td>
-                <td>{{ inventory.buyer }}</td>
-                <td>{{ inventory.sell_pay_date }}</td>
+                <td>{{ inventory.id|default:"" }}</td>
+                <td>{{ inventory.sell_month|default:"" }}</td>
+                <td>{{ inventory.type|default:"" }}</td>
+                <td>{{ inventory.manufacturer|default:"" }}</td>
+                <td>{{ inventory.name|default:"" }}</td>
+                <td>{{ inventory.serial_no|default:"" }}</td>
+                <td>{{ inventory.created|default:"" }}</td>
+                <td>{{ inventory.company|default:"" }}</td>
+                <td>{{ inventory.account|default:"" }}</td>
+                <td>{{ inventory.order_date|default:"" }}</td>
+                <td>{{ inventory.seller|default:"" }}</td>
+                <td>{{ inventory.order_cost_price|default:"" }}</td>
+                <td>{{ inventory.order_pay_date|default:"" }}</td>
+                <td>{{ inventory.buyer|default:"" }}</td>
+                <td>{{ inventory.sell_pay_date|default:"" }}</td>
                 <td>
                     <a href="{% url 'inventory_edit' pk=inventory.pk %}" class="btn btn-primary">編集</a>
                     <a href="{% url 'inventory_download_ordersheet' id=inventory.pk %}" class="btn btn-primary">注文書</a>
