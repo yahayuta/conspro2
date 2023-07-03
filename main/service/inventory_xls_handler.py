@@ -16,7 +16,7 @@ def create_ordersheet(inventory_id):
 
     sheet = wb['注文書']
     sheet['J1'] = inventory_id
-    sheet['J2'] = datetime.date.today()
+    sheet['J2'] = datetime.date.today().strftime("%Y-%m-%d")
 
     sheet['K5'] = company.name
     sheet['K6'] = f"〒 {str(company.zip)[0:3]}-{str(company.zip)[3:]}"
@@ -43,13 +43,17 @@ def create_ordersheet(inventory_id):
 
     return response
 
-# 発注書出力
+# 請求書出力
 def create_jpinvoice(inventory_ids):
 
     # Excelのテンプレートファイルの読み込み
     wb = openpyxl.load_workbook('/django/main/static/tpl/JpInvoice.xlsx')
 
     sheet = wb['見積書']
+    sheet_inv = wb['請求書']
+
+    sheet['K1'] = int(time.time())
+    sheet['K2'] = datetime.date.today().strftime("%Y-%m-%d")
 
     start_row = 18
     for inventory_id in inventory_ids:
@@ -57,13 +61,12 @@ def create_jpinvoice(inventory_ids):
         company = inventory.company
         buyer = inventory.buyer
 
-        sheet['K2'] = datetime.date.today()
-
         sheet['L6'] = company.name
         sheet['L7'] = f"〒 {str(company.zip)[0:3]}-{str(company.zip)[3:]}"
         sheet['L8'] = company.address
         sheet['L9'] = f"電話：{company.tel}"
         sheet['L10'] = f"FAX：{company.fax}"
+        sheet_inv['L6'] = f"登録番号 {company.registration_number}"
 
         sheet['C2'] = f"〒 {str(buyer.zip)[0:3]}-{str(buyer.zip)[3:]}"
         sheet['C3'] = buyer.address
@@ -94,6 +97,10 @@ def create_proforma_invoice(inventory_ids):
 
     sheet = wb['Proforma']
 
+    sheet['D6'] = int(time.time())
+    sheet['I5'] = datetime.date.today().strftime("%Y-%m-%d")
+
+    start_row = 18
     for inventory_id in inventory_ids:
         inventory = Inventory.objects.get(pk=inventory_id)
         company = inventory.company
@@ -106,6 +113,14 @@ def create_proforma_invoice(inventory_ids):
         sheet['D8'] = seller.address
         sheet['D10'] = f"TEL: {seller.tel}"
         sheet['F10'] = f"FAX: {seller.fax}"
+
+        sheet[f"B{str(start_row)}"] = f"MODEL:{inventory.name}"
+        sheet[f"B{str(start_row + 1)}"] = f"S/N:{inventory.serial_no}"
+        sheet[f"F{str(start_row)}"] = 1
+        sheet[f"G{str(start_row)}"] = "UNIT"
+        sheet[f"H{str(start_row)}"] = inventory.sell_price
+
+        start_row += 2
 
     # Excelを返すためにcontent_typeに「application/vnd.ms-excel」をセットします。
     response = HttpResponse(content_type='application/vnd.ms-excel')
