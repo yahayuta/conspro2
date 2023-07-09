@@ -54,10 +54,10 @@
                 <td>{{ inventory.manufacturer|default:"" }}</td>
                 <td>{{ inventory.name|default:"" }}</td>
                 <td>{{ inventory.serial_no|default:"" }}</td>
-                <td>{{ inventory.created|default:"" }}</td>
+                <td>{{ inventory.created|default:""|date:"Y-m-d" }}</td>
                 <td>{{ inventory.company|default:"" }}</td>
                 <td>{{ inventory.account|default:"" }}</td>
-                <td>{{ inventory.order_date|default:"" }}</td>
+                <td>{{ inventory.order_date|default:""|date:"Y-m-d" }}</td>
                 <td>{{ inventory.seller|default:"" }}</td>
                 <td>{{ inventory.order_cost_price|default:"" }}</td>
                 <td>{{ inventory.order_pay_date|default:"" }}</td>
