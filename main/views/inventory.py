@@ -41,6 +41,7 @@ class InventoryCreateView(LoginRequiredMixin, CreateView):
     template_name = 'inventory_edit.html'
     model = Inventory
     fields = [
+        'status',
         'company',
         'name',
         'price',
@@ -88,6 +89,7 @@ class InventoryUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'inventory_edit.html'
     model = Inventory
     fields = [
+        'status',
         'company',
         'name',
         'price',

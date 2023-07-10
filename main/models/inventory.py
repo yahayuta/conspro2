@@ -13,15 +13,26 @@ CONDITION = (
     ('B','B：エンジンや油圧系統など重要部品が故障しているもの'),
 )
 
+# 整備状況
 CONDITION_MAINTENANCE = (
     ('1','1：全塗装整備済み(Painted and Served)'),
     ('2','2：整備済み(Served)'),
     ('3','3：現状有姿(As is condition)'),
 )
 
+# ステータス
+STATUS = (
+    ('0','有効在庫'),
+    ('1','締め在庫'),
+    ('5','その他'),
+    ('6','削除その他'),
+    ('9','削除在庫'),
+)
+
 # Create your models here.
 class Inventory(models.Model):
     id = models.AutoField(verbose_name="会社ID", primary_key=True)
+    status = models.CharField(verbose_name="ステータス", choices=STATUS, max_length=2, default='0')
     company = models.ForeignKey('Company', on_delete=models.SET_NULL, null=True, db_column='company_id', verbose_name="会社")
     name = models.CharField(verbose_name="型式/MODEL", max_length=256)
     price = models.IntegerField(verbose_name="表示価格/LIST PRICE",default=0)

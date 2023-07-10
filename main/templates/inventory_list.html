@@ -27,6 +27,7 @@
             <tr>
                 <th scope="col">選択</th>
                 <th scope="col">在庫ID</th>
+                <th scope="col">ステータス</th>
                 <th scope="col">売上月</th>
                 <th scope="col">分類</th>
                 <th scope="col">メーカー</th>
@@ -49,7 +50,8 @@
             <tr>
                 <td scope="row"><input type="checkbox" name="inventory_ids" value="{{ inventory.id }}"/></td>
                 <td>{{ inventory.id|default:"" }}</td>
-                <td>{{ inventory.sell_month|default:"" }}</td>
+                <td>{{ inventory.get_status_display|default:"" }}</td>
+                <td>{{ inventory.sell_month|default:""|date:"Y-m" }}</td>
                 <td>{{ inventory.type|default:"" }}</td>
                 <td>{{ inventory.manufacturer|default:"" }}</td>
                 <td>{{ inventory.name|default:"" }}</td>
