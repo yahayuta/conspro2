@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 
 from ..filters import InventoryFilter
 from ..service import inventory_xls_handler
+from ..forms import InventoryEditForm
 
 # 検索一覧画面
 class InventoryFilterView(LoginRequiredMixin, FilterView):
@@ -38,99 +39,16 @@ class InventoryListView(LoginRequiredMixin, ListView):
 
 # 新規作成
 class InventoryCreateView(LoginRequiredMixin, CreateView):
+    form_class = InventoryEditForm
     template_name = 'inventory_edit.html'
     model = Inventory
-    fields = [
-        'status',
-        'company',
-        'name',
-        'price',
-        'condition',
-        'condition_maintenance',
-        'type',
-        'manufacturer',
-        'year',
-        'serial_no',
-        'hours',
-        'other',
-        'other_ja',
-        'pic_url',
-        'account',
-        'order_date',
-        'web_disp',
-        'seller_name',
-        'seller',
-        'order_price',
-        'order_trans_cost',
-        'parts_cost',
-        'maintenance_cost',
-        'order_out_order_cost',
-        'order_cost_price',
-        'tran_place',
-        'sell_trance_cost',
-        'ship_cost',
-        'sell_out_order_cost',
-        'ins_cost',
-        'freight_cost',
-        'sell_cost_price',
-        'sell_price',
-        'whol_price',
-        'profit',
-        'buyer_name',
-        'buyer',
-        'order_pay_date',
-        'sell_pay_date',
-        'sell_month',
-        'memo',        
-        ]
 
 # 更新
 class InventoryUpdateView(LoginRequiredMixin, UpdateView):
+    form_class = InventoryEditForm
     template_name = 'inventory_edit.html'
     model = Inventory
-    fields = [
-        'status',
-        'company',
-        'name',
-        'price',
-        'condition',
-        'condition_maintenance',
-        'type',
-        'manufacturer',
-        'year',
-        'serial_no',
-        'hours',
-        'other',
-        'other_ja',
-        'pic_url',
-        'account',
-        'order_date',
-        'web_disp',
-        'seller_name',
-        'seller',
-        'order_price',
-        'order_trans_cost',
-        'parts_cost',
-        'maintenance_cost',
-        'order_out_order_cost',
-        'order_cost_price',
-        'tran_place',
-        'sell_trance_cost',
-        'ship_cost',
-        'sell_out_order_cost',
-        'ins_cost',
-        'freight_cost',
-        'sell_cost_price',
-        'sell_price',
-        'whol_price',
-        'profit',
-        'buyer_name',
-        'buyer',
-        'order_pay_date',
-        'sell_pay_date',
-        'sell_month',
-        'memo',        
-        ]
+    
 # 削除
 class InventoryDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'inventory_edit.html'

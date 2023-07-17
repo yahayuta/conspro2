@@ -62,9 +62,9 @@
                 <td>{{ inventory.order_date|default:""|date:"Y-m-d" }}</td>
                 <td>{{ inventory.seller|default:"" }}</td>
                 <td>{{ inventory.order_cost_price|default:"" }}</td>
-                <td>{{ inventory.order_pay_date|default:"" }}</td>
+                <td>{{ inventory.order_pay_date|default:""|date:"Y-m-d" }}</td>
                 <td>{{ inventory.buyer|default:"" }}</td>
-                <td>{{ inventory.sell_pay_date|default:"" }}</td>
+                <td>{{ inventory.sell_pay_date|default:""|date:"Y-m-d" }}</td>
                 <td>
                     <a href="{% url 'inventory_edit' pk=inventory.pk %}" class="btn btn-primary">編集</a>
                     <a href="{% url 'inventory_download_ordersheet' id=inventory.pk %}" class="btn btn-primary">注文書</a>
