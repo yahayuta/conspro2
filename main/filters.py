@@ -38,4 +38,4 @@ class InventoryFilter(FilterSet):
 
     class Meta:
         model = Inventory
-        fields = ('company_id', 'status', 'type_id', 'manufacturer_id', 'name', 'year', 'serial_no', 'hours', 'other_ja')
+        fields = ('company_id', 'status', 'type_id', 'manufacturer_id', 'name', 'year', 'serial_no', 'hours', 'other_ja', 'buyer', 'order_pay_date', 'sell_pay_date', 'sell_month')
