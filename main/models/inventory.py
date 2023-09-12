@@ -24,6 +24,8 @@ CONDITION_MAINTENANCE = (
 STATUS = (
     ('0','有効在庫'),
     ('1','締め在庫'),
+    ('2','レンタル空車'),
+    ('3','レンタル出庫中'),
     ('5','その他'),
     ('6','削除その他'),
     ('9','削除在庫'),
@@ -73,6 +75,15 @@ class Inventory(models.Model):
     sell_pay_date = models.DateField(verbose_name="売上入金日", blank=True, null=True)
     sell_month = models.DateField(verbose_name="売上月", blank=True, null=True)
     memo = models.TextField(verbose_name="在庫メモ", blank=True, null=True)
+
+    # レンタル専用用項目
+    enrollment = models.CharField(verbose_name="在籍", blank=True, null=True, max_length=256)
+    price_day = models.IntegerField(verbose_name="日単価",default=0)
+    price_month = models.IntegerField(verbose_name="月単価",default=0)
+    price_support = models.IntegerField(verbose_name="サポート料金",default=0)
+    size = models.IntegerField(verbose_name="サイズ（㎥）",default=0)
+    weight = models.IntegerField(verbose_name="重量（㎏）",default=0)
+
     creator = CurrentUserField(verbose_name="作成者", editable=False, related_name="create_inventory")
     created = models.DateTimeField(verbose_name="作成日", auto_now_add=True)
     modifier = CurrentUserField(verbose_name="更新者", editable=False, related_name="update_inventory", on_update=True, )
