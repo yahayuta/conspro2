@@ -1,6 +1,6 @@
 from django_filters import filters
 from django_filters import FilterSet
-from .models import Inventory
+from .models import Inventory, Work
 
 class MyOrderingFilter(filters.OrderingFilter):
     descending_fmt = '%s （降順）'
@@ -39,3 +39,30 @@ class InventoryFilter(FilterSet):
     class Meta:
         model = Inventory
         fields = ('company_id', 'status', 'type_id', 'manufacturer_id', 'name', 'year', 'serial_no', 'hours', 'other_ja', 'buyer', 'order_pay_date', 'sell_pay_date', 'sell_month')
+
+# 作業モデルフィルター
+class WorkFilter(FilterSet):
+
+    name = filters.CharFilter(label='作業名', lookup_expr='contains')
+
+    order_by = MyOrderingFilter(
+        fields=(
+            ('status', 'status'),
+            ('name', 'name'),
+            ('machine_name', 'machine_name'),
+            ('serial_no', 'serial_no'),
+            ('client_id', 'client_id'),
+        ),
+        field_labels={
+            'status': 'ステータス',
+            'machine_name': '作業名',
+            'serial_no': '号機',
+            'machine_name': '型式',
+            'client_id': '顧客',
+        },
+        label='並び順'
+    )
+
+    class Meta:
+        model = Work
+        fields = ('status', 'name', 'machine_name', 'serial_no', 'client_id')

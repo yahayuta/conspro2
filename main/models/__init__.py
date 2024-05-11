@@ -4,3 +4,5 @@ from main.models.maker import Maker
 from main.models.notice import Notice
 from main.models.type_machine import Type_Machine
 from main.models.inventory import Inventory
+from main.models.work import Work
+from main.models.work_row import WorkRow

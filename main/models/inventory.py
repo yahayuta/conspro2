@@ -33,7 +33,7 @@ STATUS = (
 
 # Create your models here.
 class Inventory(models.Model):
-    id = models.AutoField(verbose_name="会社ID", primary_key=True)
+    id = models.AutoField(verbose_name="在庫ID", primary_key=True)
     status = models.CharField(verbose_name="ステータス", choices=STATUS, max_length=2, default='0')
     company = models.ForeignKey('Company', on_delete=models.SET_NULL, null=True, db_column='company_id', verbose_name="会社")
     name = models.CharField(verbose_name="型式/MODEL", max_length=256)

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 
 from .models import Inventory
+from .models import Work, WorkRow
 
 class LoginForm(AuthenticationForm):
     class Meta:
@@ -20,3 +21,18 @@ class InventoryEditForm(forms.ModelForm):
             'sell_pay_date': forms.NumberInput(attrs={"type":"date"}),
         }
 
+class WorkCreateForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+
+    class Meta:
+        model = Work
+        fields = '__all__'
+
+WorkRowFormset = forms.inlineformset_factory(
+    Work, WorkRow, fields='__all__',
+    extra=17, max_num=17
+)
