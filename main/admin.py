@@ -12,6 +12,6 @@ admin.site.register(Inventory)
 admin.site.register(Work)
 admin.site.register(WorkRow)
 
-admin.site.site_header = 'CONSPRO2管理画面'
+admin.site.site_header = '管理画面'
 admin.site.index_title = 'マスター管理'
 

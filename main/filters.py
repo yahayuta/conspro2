@@ -10,7 +10,6 @@ class InventoryFilter(FilterSet):
 
     name = filters.CharFilter(label='型式', lookup_expr='contains')
     serial_no = filters.CharFilter(label='号機', lookup_expr='contains')
-    other_ja = filters.CharFilter(label='詳細／仕様', lookup_expr='contains')
 
     order_by = MyOrderingFilter(
         fields=(
@@ -38,7 +37,7 @@ class InventoryFilter(FilterSet):
 
     class Meta:
         model = Inventory
-        fields = ('company_id', 'status', 'type_id', 'manufacturer_id', 'name', 'year', 'serial_no', 'hours', 'other_ja', 'buyer', 'order_pay_date', 'sell_pay_date', 'sell_month')
+        fields = ('company_id', 'status', 'type_id', 'manufacturer_id', 'name', 'year', 'serial_no', 'hours', 'buyer', 'order_pay_date', 'sell_pay_date', 'sell_month')
 
 # 作業モデルフィルター
 class WorkFilter(FilterSet):
