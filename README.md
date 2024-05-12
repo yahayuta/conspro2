@@ -8,7 +8,7 @@
 docker-compose build
 docker-compose up -d
 # 初回にやる
-docker exec -it conspro2-web bash
+docker exec -it conspro2 bash
 python manage.py migrate
 python manage.py createsuperuser
 ```
@@ -21,8 +21,8 @@ python manage.py showmigrations
 ```
 ## その他
 ```sh
-docker exec -it conspro2-web bash
-docker logs -f conspro2-web
+docker exec -it conspro2 bash
+docker logs -f conspro2
 ```
 ## 画面起動
 https://localhost:3443/  

@@ -8,7 +8,7 @@
 </head>
 <body>
     <form action="{% url 'login' %}" method="post" class="text-center">
-        <h1>CONSPRO2</h1>
+        <h1>ログイン</h1>
         {% csrf_token %}
         <table class="table table-bordered table-sm">{{ form.as_table }}</table>
         <div><input type="submit" value="ログイン" class="btn btn-secondary"></div>
