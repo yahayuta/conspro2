@@ -44,6 +44,8 @@ class InventoryFilter(FilterSet):
 class WorkFilter(FilterSet):
 
     name = filters.CharFilter(label='作業名', lookup_expr='contains')
+    machine_name = filters.CharFilter(label='型式', lookup_expr='contains')
+    serial_no = filters.CharFilter(label='号機', lookup_expr='contains')
 
     order_by = MyOrderingFilter(
         fields=(
@@ -55,9 +57,9 @@ class WorkFilter(FilterSet):
         ),
         field_labels={
             'status': 'ステータス',
-            'machine_name': '作業名',
-            'serial_no': '号機',
+            'name': '作業名',
             'machine_name': '型式',
+            'serial_no': '号機',
             'client_id': '顧客',
         },
         label='並び順'
