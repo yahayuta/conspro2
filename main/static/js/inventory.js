@@ -1,3 +1,17 @@
+document.addEventListener('DOMContentLoaded', function() {
+	const selectElements = document.querySelectorAll('select');
+
+	selectElements.forEach(selectElement => {
+		selectElement.classList.add('select_search');
+	});
+});
+
+$(document).ready(function() {
+    $('.select_search').select2({
+		language: "ja" //日本語化
+	});
+});
+
 /**
  * 在庫検索
  */

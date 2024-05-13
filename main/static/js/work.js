@@ -1,5 +1,18 @@
+document.addEventListener('DOMContentLoaded', function() {
+	const selectElements = document.querySelectorAll('select');
+
+	selectElements.forEach(selectElement => {
+		selectElement.classList.add('select_search');
+	});
+});
+
 // ロード時にイベントハンドラを仕掛ける
 $(document).ready(function(){
+
+    $('.select_search').select2({
+		language: "ja" //日本語化
+	});
+
     for (let i = 0; i < 17; i++) {
         $('#id_work_id-' + i + '-count').blur(calc);
         $('#id_work_id-' + i + '-price').blur(calc);
