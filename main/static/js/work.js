@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	selectElements.forEach(selectElement => {
 		selectElement.classList.add('select_search');
+		selectElement.classList.add('form-select');
 	});
 });
 
