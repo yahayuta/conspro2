@@ -42,7 +42,7 @@ class Inventory(models.Model):
     condition_maintenance = models.CharField(verbose_name="整備状況", choices=CONDITION_MAINTENANCE, max_length=2, default='1')
     type = models.ForeignKey('Type_Machine', on_delete=models.SET_NULL, null=True, db_column='machine_type_id', verbose_name="分類")
     manufacturer = models.ForeignKey('Maker', on_delete=models.SET_NULL, null=True, db_column='maker_id', verbose_name="メーカー")
-    year = models.CharField(verbose_name="年式/YEAR", blank=True, null=True, max_length=16)
+    year = models.CharField(verbose_name="年式", blank=True, null=True, max_length=16)
     serial_no = models.CharField(verbose_name="号機", blank=True, null=True, max_length=256)
     hours = models.CharField(verbose_name="稼働時間", blank=True, null=True, max_length=16)
     # other = models.CharField(verbose_name="DESCRIPTION", blank=True, null=True, max_length=256)
