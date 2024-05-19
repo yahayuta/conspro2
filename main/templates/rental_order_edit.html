@@ -27,6 +27,7 @@
                 <caption>レンタル注文明細</caption>
                 <thead>
                     <tr>
+                        <th scope="col">出力</th>
                         <th scope="col">品名</th>
                         <th scope="col">数量</th>
                         <th scope="col">単価</th>
@@ -40,6 +41,7 @@
                     {{ rental_order_row_form.id }}
                     {{ rental_order_row_form.rental_order }}
                     <tr>
+                        <td>{{ rental_order_row_form.is_out }}</td>
                         <td>{{ rental_order_row_form.name }}</td>
                         <td>{{ rental_order_row_form.count }}</td>
                         <td>{{ rental_order_row_form.price }}</td>
