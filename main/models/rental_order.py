@@ -2,6 +2,18 @@ from django.db import models
 from django_currentuser.db.models import CurrentUserField
 from django.urls import reverse
 
+# 注文区分
+ORDER_TYPE = (
+    ('0','0：月極'),
+    ('1','1：日極'),
+)
+
+# 締め日
+CLOSE_DATE = (
+    ('20','20日'),
+    ('30','30日'),
+)
+
 # Create your models here.
 class RentalOrder(models.Model):
     id = models.AutoField(verbose_name="レンタル注文ID", primary_key=True)
@@ -9,8 +21,8 @@ class RentalOrder(models.Model):
     company = models.ForeignKey('Company', on_delete=models.SET_NULL, null=True, db_column='company_id', verbose_name="会社")
     hours_start = models.IntegerField(verbose_name="稼動時間開始時", blank=True, null=True)
     enrollment = models.CharField(verbose_name="在籍", blank=True, null=True, max_length=256)
-    order_type = models.CharField(verbose_name="注文区分", blank=True, null=True, max_length=256)
-    close_date = models.DateField(verbose_name="締め日", blank=True, null=True)
+    order_type = models.CharField(verbose_name="注文区分", choices=ORDER_TYPE, max_length=2)
+    close_date = models.CharField(verbose_name="締め日", choices=CLOSE_DATE, max_length=2)
     out_date = models.DateField(verbose_name="出庫日", blank=True, null=True)
     in_date = models.DateField(verbose_name="返却日", blank=True, null=True)
     start_date = models.DateField(verbose_name="レンタル開始日", blank=True, null=True)
@@ -30,7 +42,7 @@ class RentalOrder(models.Model):
     modified = models.DateTimeField(verbose_name="更新日", auto_now=True)
 
     def __str__(self):
-        return str(self.id) +':' + self.rental_inventory.name
+        return str(self.id) + ':' + self.rental_inventory.name + ':' + self.rental_inventory.serial_no
 
     def get_absolute_url(self):
         return reverse('rental_order_list')

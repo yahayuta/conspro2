@@ -20,7 +20,7 @@ class RentalOrderRow(models.Model):
     modified = models.DateTimeField(verbose_name="更新日", auto_now=True)
 
     def __str__(self):
-        return str(self.rental_order.rental_inventory.name)+':'+str(self.id)+':'+str(self.name)
+        return str(self.rental_order.rental_inventory.name)+':'+str(self.rental_order.rental_inventory.serial_no)+':'+str(self.id)+':'+str(self.name)
 
     def get_absolute_url(self):
         return reverse('rental_order_row_list')

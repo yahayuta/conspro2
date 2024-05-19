@@ -3,22 +3,22 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8">
-    <title>作業一覧</title>
+    <title>レンタル注文一覧</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="{% static 'js/jquery-3.6.3.min.js' %}"></script>   
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/i18n/ja.js"></script>
-    <script src="{% static 'js/rental_order.js' %}"></script>
+    <script src="{% static 'js/work.js' %}"></script>
 </head>
 <body>
 {% include 'nav.html' %}
 <form>
-    <h1>作業一覧</h1>
+    <h1>レンタル注文一覧</h1>
     <div><table class="table table-bordered table-sm caption-top"><caption>検索条件</caption>{{ filter.form.as_table }}</table></div>
     <div>
         <input type="submit" value="検索" class="btn btn-secondary">
-        <a href="{% url 'work_new' %}" class="btn btn-primary">新規登録</a>
+        <a href="{% url 'rental_order_new' %}" class="btn btn-primary">新規登録</a>
     </div>
 
     <div class="table-responsive">
@@ -26,29 +26,27 @@
         <caption>検索結果</caption>
         <thead>
             <tr>
-                <th scope="col">作業ID</th>
-                <th scope="col">ステータス</th>
-                <th scope="col">型式</th>
-                <th scope="col">号機</th>
-                <th scope="col">顧客</th>
-                <th scope="col">作業名</th>
-                <th scope="col">総合計</th>
+                <th scope="col">レンタル注文ID</th>
+                <th scope="col">レンタル在庫</th>
+                <th scope="col">出庫日</th>
+                <th scope="col">返却日</th>
+                <th scope="col">レンタル開始日</th>
+                <th scope="col">レンタル終了日</th>
+                <th scope="col">締め日</th>
                 <th scope="col">操作</th>
             </tr>
         </thead>
         <tbody>
-        {% for work in object_list %}
+        {% for rental_order in object_list %}
             <tr>
-                <td scope="row">{{ work.id }}</td>
-                <td>{{ work.get_status_display }}</td>
-                <td>{{ work.machine_name }}</td>
-                <td>{{ work.serial_no }}</td>
-                <td>{{ work.client }}</td>
-                <td>{{ work.name }}</td>
-                <td>{{ work.total }}</td>
+                <td scope="row">{{ rental_order.id }}</td>
+                <td>{{ rental_order.rental_inventory.name }}</td>
+                <td>{{ rental_order.out_date }}</td>
+                <td>{{ rental_order.in_date }}</td>
+                <td>{{ rental_order.start_date }}</td>
+                <td>{{ rental_order.end_date }}</td>
                 <td>
-                    <a href="{% url 'work_edit' pk=work.pk %}" class="btn btn-primary">編集</a>
-                    <a href="{% url 'work_download_invoice' id=work.pk %}" class="btn btn-primary">伝票出力</a>
+                    <a href="{% url 'rental_order_edit' pk=rental_order.pk %}" class="btn btn-primary">編集</a>
                 </td>
             </tr>
         {% endfor %}

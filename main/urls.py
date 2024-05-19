@@ -1,7 +1,9 @@
 from django.urls import path
 
-from .views import login, inventory
+from .views import login
+from .views import inventory
 from .views import work
+from .views import rental
 
 urlpatterns = [
     path('login/', login.login_view, name='login'),
@@ -18,4 +20,7 @@ urlpatterns = [
     path('work/new/', work.work_new, name='work_new'),
     path('work/edit/<int:pk>/', work.work_edit, name='work_edit'),
     path('work/download_invoice/<int:id>/', work.download_invoice, name='work_download_invoice'),
+    path('rental_order/', rental.RentalOrderFilterView.as_view(), name='rental_order_list'),
+    path('rental_order/new/', rental.rental_order_new, name='rental_order_new'),
+    path('rental_order/edit/<int:pk>/', rental.rental_order_edit, name='rental_order_edit'),
 ]

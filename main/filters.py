@@ -1,6 +1,7 @@
 from django_filters import filters
 from django_filters import FilterSet
-from .models import Inventory, Work
+
+from .models import Inventory, Work, RentalOrder
 
 class MyOrderingFilter(filters.OrderingFilter):
     descending_fmt = '%s （降順）'
@@ -67,3 +68,28 @@ class WorkFilter(FilterSet):
     class Meta:
         model = Work
         fields = ('status', 'name', 'machine_name', 'serial_no', 'client_id')
+
+# レンタル注文モデルフィルター
+class RentalOrderFilter(FilterSet):
+
+    order_by = MyOrderingFilter(
+        fields=(
+            ('out_date', 'out_date'),
+            ('in_date', 'in_date'),
+            ('start_date', 'start_date'),
+            ('end_date', 'end_date'),
+            ('close_date', 'close_date'),
+        ),
+        field_labels={
+            'out_date': '出庫日',
+            'in_date': '返却日',
+            'start_date': 'レンタル開始日',
+            'end_date': 'レンタル終了日',
+            'close_date': '締め日',
+        },
+        label='並び順'
+    )
+
+    class Meta:
+        model = RentalOrder
+        fields = []
