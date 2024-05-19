@@ -23,7 +23,7 @@ class WorkRow(models.Model):
     parts_name = models.CharField(verbose_name="部品番", blank=True, null=True, max_length=256)
     parts_delivery_date = models.DateField(verbose_name="納品予定日", blank=True, null=True)
     client = models.ForeignKey('Client',on_delete=models.SET_NULL, blank=True, null=True, db_column='client_id', verbose_name="仕入先")
-    memo = models.TextField(verbose_name="備考欄", max_length=256, blank=True, null=True)
+    memo = models.CharField(verbose_name="備考欄", max_length=256, blank=True, null=True)
     
     creator = CurrentUserField(verbose_name="作成者", editable=False, related_name="create_work_row")
     created = models.DateTimeField(verbose_name="作成日", auto_now_add=True)

@@ -12,7 +12,7 @@ class RentalOrderRow(models.Model):
     count = models.IntegerField(verbose_name="数量",default=1)
     price = models.IntegerField(verbose_name="単価",default=0)
     total = models.IntegerField(verbose_name="合計",default=0)
-    memo = models.TextField(verbose_name="備考欄", max_length=256, blank=True, null=True)
+    memo = models.CharField(verbose_name="備考欄", max_length=256, blank=True, null=True)
 
     creator = CurrentUserField(verbose_name="作成者", editable=False, related_name="create_rental_order_row")
     created = models.DateTimeField(verbose_name="作成日", auto_now_add=True)
