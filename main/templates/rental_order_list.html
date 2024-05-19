@@ -27,12 +27,16 @@
         <thead>
             <tr>
                 <th scope="col">レンタル注文ID</th>
+                <th scope="col">請求日</th>
+                <th scope="col">締め日</th>
                 <th scope="col">レンタル在庫</th>
+                <th scope="col">顧客</th>
+                <th scope="col">注文区分</th>
                 <th scope="col">出庫日</th>
                 <th scope="col">返却日</th>
                 <th scope="col">レンタル開始日</th>
                 <th scope="col">レンタル終了日</th>
-                <th scope="col">締め日</th>
+                <th scope="col">総合計</th>
                 <th scope="col">操作</th>
             </tr>
         </thead>
@@ -40,11 +44,16 @@
         {% for rental_order in object_list %}
             <tr>
                 <td scope="row">{{ rental_order.id }}</td>
-                <td>{{ rental_order.rental_inventory.name }}</td>
-                <td>{{ rental_order.out_date }}</td>
-                <td>{{ rental_order.in_date }}</td>
-                <td>{{ rental_order.start_date }}</td>
-                <td>{{ rental_order.end_date }}</td>
+                <td>{{ rental_order.request_date|default:""|date:"Y-m-d" }}</td>
+                <td>{{ rental_order.get_close_date_display|default:"" }}</td>
+                <td>{{ rental_order.rental_inventory.name|default:"" }}<br>{{ rental_order.rental_inventory.serial_no|default:"" }}</td>
+                <td>{{ rental_order.client.name|default:"" }}</td>
+                <td>{{ rental_order.get_order_type_display|default:"" }}</td>
+                <td>{{ rental_order.out_date|default:""|date:"Y-m-d" }}</td>
+                <td>{{ rental_order.in_date|default:""|date:"Y-m-d" }}</td>
+                <td>{{ rental_order.start_date|default:""|date:"Y-m-d" }}</td>
+                <td>{{ rental_order.end_date|default:""|date:"Y-m-d" }}</td>
+                <td>{{ rental_order.total|default:"" }}</td>
                 <td>
                     <a href="{% url 'rental_order_edit' pk=rental_order.pk %}" class="btn btn-primary">編集</a>
                 </td>

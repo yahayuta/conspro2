@@ -35,6 +35,7 @@ class RentalOrder(models.Model):
     total = models.IntegerField(verbose_name="総合計",default=0)
     order_name = models.CharField(verbose_name="ユーザー名", max_length=256, blank=True, null=True)
     order_place = models.CharField(verbose_name="搬入先", max_length=256, blank=True, null=True)
+    request_date = models.DateField(verbose_name="請求日", blank=True, null=True)
 
     creator = CurrentUserField(verbose_name="作成者", editable=False, related_name="create_rental_order")
     created = models.DateTimeField(verbose_name="作成日", auto_now_add=True)
