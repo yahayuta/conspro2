@@ -8,6 +8,7 @@ from django_filters.views import FilterView
 from ..models import RentalOrder
 from ..filters import RentalOrderFilter
 from ..forms import RentalOrderCreateForm, RentalOrderRowFormset
+from ..service import rental_xls_handler
 
 # 検索一覧画面
 class RentalOrderFilterView(LoginRequiredMixin, FilterView):
@@ -71,3 +72,7 @@ def rental_order_edit(request, pk):
 
     return render(request, 'rental_order_edit.html', context)
 
+# 出庫返却伝票出力
+@login_required
+def download_rental_ordersheet(request, id):
+    return rental_xls_handler.create_rental_ordersheet(id)

@@ -46,7 +46,7 @@
                 <td scope="row">{{ rental_order.id }}</td>
                 <td>{{ rental_order.request_date|default:""|date:"Y-m-d" }}</td>
                 <td>{{ rental_order.get_close_date_display|default:"" }}</td>
-                <td>{{ rental_order.rental_inventory.name|default:"" }}<br>{{ rental_order.rental_inventory.serial_no|default:"" }}</td>
+                <td>{{ rental_order.rental_inventory.id|default:"" }}<br>{{ rental_order.rental_inventory.name|default:"" }}<br>{{ rental_order.rental_inventory.serial_no|default:"" }}</td>
                 <td>{{ rental_order.client.name|default:"" }}</td>
                 <td>{{ rental_order.get_order_type_display|default:"" }}</td>
                 <td>{{ rental_order.out_date|default:""|date:"Y-m-d" }}</td>
@@ -55,7 +55,8 @@
                 <td>{{ rental_order.end_date|default:""|date:"Y-m-d" }}</td>
                 <td>{{ rental_order.total|default:"" }}</td>
                 <td>
-                    <a href="{% url 'rental_order_edit' pk=rental_order.pk %}" class="btn btn-primary">編集</a>
+                    <a href="{% url 'rental_order_edit' pk=rental_order.pk %}" class="btn btn-primary">編集</a><br>
+                    <a href="{% url 'download_rental_ordersheet' id=rental_order.pk %}" class="btn btn-primary">出庫・返却伝票</a>
                 </td>
             </tr>
         {% endfor %}

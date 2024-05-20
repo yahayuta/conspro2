@@ -23,4 +23,5 @@ urlpatterns = [
     path('rental_order/', rental.RentalOrderFilterView.as_view(), name='rental_order_list'),
     path('rental_order/new/', rental.rental_order_new, name='rental_order_new'),
     path('rental_order/edit/<int:pk>/', rental.rental_order_edit, name='rental_order_edit'),
+    path('rental_order/download_rental_ordersheet/<int:id>/', rental.download_rental_ordersheet, name='download_rental_ordersheet'),
 ]
