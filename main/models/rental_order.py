@@ -43,7 +43,7 @@ class RentalOrder(models.Model):
     modified = models.DateTimeField(verbose_name="更新日", auto_now=True)
 
     def __str__(self):
-        return str(self.id) + ':' + self.rental_inventory.name + ':' + self.rental_inventory.serial_no
+        return '会社:'+self.company.name+' ID:'+str(self.id) + ' 型式:' + self.rental_inventory.name + ' 号機:' + self.rental_inventory.serial_no
 
     def get_absolute_url(self):
         return reverse('rental_order_list')

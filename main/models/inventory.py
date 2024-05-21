@@ -91,7 +91,7 @@ class Inventory(models.Model):
     modified = models.DateTimeField(verbose_name="更新日", auto_now=True)
 
     def __str__(self):
-        return str(self.id)+' 型式:'+self.name+' 号機:'+str(self.serial_no)+' 分類:'+self.type.name+' メーカー:'+self.manufacturer.name+' ステータス:'+self.status
+        return '会社:'+self.company.name+' ID:'+str(self.id)+' ステータス:'+self.get_status_display()+' 型式:'+self.name+' 号機:'+str(self.serial_no)+' 分類:'+self.type.name+' メーカー:'+self.manufacturer.name
 
     def get_absolute_url(self):
         return reverse('inventory_list')

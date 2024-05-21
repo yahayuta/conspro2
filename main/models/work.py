@@ -30,7 +30,7 @@ class Work(models.Model):
     modified = models.DateTimeField(verbose_name="更新日", auto_now=True)
 
     def __str__(self):
-        return str(self.id)+':'+str(self.name)+':'+self.status+':'+self.company.name+':'+self.machine_name+':'+self.client.name
+        return '会社:'+self.company.name+' ID:'+str(self.id)+' ステータス:'+self.get_status_display()+' 作業名:'+str(self.name)+' 型式:'+self.machine_name+' 号機:'+self.serial_no+' 顧客:'+self.client.name
 
     def get_absolute_url(self):
         return reverse('work_list')
