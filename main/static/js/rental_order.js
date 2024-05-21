@@ -15,23 +15,25 @@ $(document).ready(function(){
 	});
 
     for (let i = 0; i < 17; i++) {
-        $('#id_rental_order_id-' + i + '-count').blur(calc);
-        $('#id_rental_order_id-' + i + '-price').blur(calc);
+        $('#id_rental_order_id-' + i + '-is_out').blur(calc_invoice);
+        $('#id_rental_order_id-' + i + '-count').blur(calc_invoice);
+        $('#id_rental_order_id-' + i + '-price').blur(calc_invoice);
     }
-    $('#id_adjust').blur(calc);
+    $('#id_adjust').blur(calc_invoice);
 
-    calc();
+    calc_invoice();
 });
 
 /**
- * 計算する
+ * 請求金額計算する
  */
-function calc() {
+function calc_invoice() {
     // 明細行の金額算出と足しこみ
     let g_total = 0;
     for (let i = 0; i < 17; i++) {
-        const row_total = 
-            Number($('#id_rental_order_id-' + i + '-count').val()) * Number($('#id_rental_order_id-' + i + '-price').val());
+        // 請求書出力対象かどうかチェック
+        if (!$('#id_rental_order_id-' + i + '-is_out').prop("checked")) continue;
+        const row_total = Number($('#id_rental_order_id-' + i + '-count').val()) * Number($('#id_rental_order_id-' + i + '-price').val());
         g_total = g_total + row_total;
         $('#id_rental_order_id-' + i + '-total').val(row_total);
     }
