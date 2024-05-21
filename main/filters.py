@@ -92,4 +92,4 @@ class RentalOrderFilter(FilterSet):
 
     class Meta:
         model = RentalOrder
-        fields = []
+        fields = ['rental_inventory','client','order_type','close_date']

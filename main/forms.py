@@ -68,18 +68,26 @@ class RentalOrderCreateForm(forms.ModelForm):
 
         is_new_instance = self.instance.pk is None
 
+        # 返却日がもともと設定されていた場合かどうかの判定
+        if not is_new_instance:
+            existing_rental_order = RentalOrder.objects.get(pk=self.instance.pk)
+            existing_in_date = existing_rental_order.in_date
+        else:
+            existing_in_date = None
+            
         # 新規登録の場合は在庫をレンタル出庫中に更新する
         if is_new_instance and rental_order.rental_inventory and rental_order.rental_inventory.status == '2':
             rental_order.rental_inventory.status = '3'
             rental_order.rental_inventory.save()
 
-        # 返却日が設定されている場合空車にする
-        if rental_order.in_date:
+        # 返却日が設定された場合空車にする
+        if existing_in_date is None and rental_order.in_date and rental_order.rental_inventory.status == '3':
             rental_order.rental_inventory.status = '2'
             rental_order.rental_inventory.save()
 
         if commit:
             rental_order.save()
+            
         return rental_order
     
 RentalOrderRowFormset = forms.inlineformset_factory(
