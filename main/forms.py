@@ -87,7 +87,21 @@ class RentalOrderCreateForm(forms.ModelForm):
 
         if commit:
             rental_order.save()
-            
+        
+        if is_new_instance:
+            if rental_order.order_type == '0':
+                price = rental_order.rental_inventory.price_month
+            elif rental_order.order_type == '1':
+                price = rental_order.rental_inventory.price_day
+
+            # Ensure RentalOrder is saved before creating RentalOrderRow instances
+            rental_order.save()
+
+            RentalOrderRow.objects.create(rental_order=rental_order, name="レンタル代", price=price)
+            RentalOrderRow.objects.create(rental_order=rental_order, name="サポート料金", price=rental_order.rental_inventory.price_support)
+            RentalOrderRow.objects.create(rental_order=rental_order, name="搬入運賃")
+            RentalOrderRow.objects.create(rental_order=rental_order, name="返却運賃")
+
         return rental_order
     
 RentalOrderRowFormset = forms.inlineformset_factory(

@@ -19,6 +19,8 @@ $(document).ready(function(){
         $('#id_rental_order_id-' + i + '-price').blur(calc);
     }
     $('#id_adjust').blur(calc);
+
+    calc();
 });
 
 /**
