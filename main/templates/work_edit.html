@@ -27,6 +27,7 @@
                 <caption>作業明細</caption>
                 <thead>
                     <tr>
+                        <th scope="col">出力</th>
                         <th scope="col">分類</th>
                         <th scope="col">品名</th>
                         <th scope="col">数量</th>
@@ -44,6 +45,7 @@
                     {{ work_row_form.id }}
                     {{ work_row_form.work }}
                     <tr>
+                        <td>{{ work_row_form.is_out }}</td>
                         <td>{{ work_row_form.type }}</td>
                         <td>{{ work_row_form.name }}</td>
                         <td>{{ work_row_form.count }}</td>

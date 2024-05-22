@@ -24,7 +24,8 @@ class WorkRow(models.Model):
     parts_delivery_date = models.DateField(verbose_name="納品予定日", blank=True, null=True)
     client = models.ForeignKey('Client',on_delete=models.SET_NULL, blank=True, null=True, db_column='client_id', verbose_name="仕入先")
     memo = models.CharField(verbose_name="備考欄", max_length=256, blank=True, null=True)
-    
+    is_out = models.BooleanField(verbose_name="出力", default=True)
+
     creator = CurrentUserField(verbose_name="作成者", editable=False, related_name="create_work_row")
     created = models.DateTimeField(verbose_name="作成日", auto_now_add=True)
     modifier = CurrentUserField(verbose_name="更新者", editable=False, related_name="update_work_row", on_update=True, )

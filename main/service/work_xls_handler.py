@@ -39,6 +39,10 @@ def create_work_invoice(id):
 
     row=18
     for work_row in work_rows:
+        # 出力対象のみ
+        if work_row.is_out == False:
+            continue
+
         sheet['B'+str(row)] =  f'{work.machine_name},{work.serial_no}'
         sheet['B'+str(row+1)] = work_row.name
         sheet['G'+str(row)] = work_row.count
@@ -53,9 +57,14 @@ def create_work_invoice(id):
     sheet_order['C5'] = work.serial_no
     sheet_order['C7'] = work.name
     row=18
+
     for work_row in work_rows:
         # 部品以外は記載しない
         if work_row.type != '2':
+            continue
+        
+        # 出力対象のみ
+        if work_row.is_out == False:
             continue
 
         sheet_order['B'+str(row)] = work_row.parts_name
