@@ -11,6 +11,11 @@ $(document).ready(function() {
     $('.select_search').select2({
 		language: "ja" //日本語化
 	});
+
+	const inputElements = document.querySelectorAll('input[type="text"], input[type="number"], input[type="date"]');
+	inputElements.forEach(inputElement => {
+		inputElement.classList.add('form-control');
+	});
 });
 
 /**

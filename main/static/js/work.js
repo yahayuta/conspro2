@@ -15,21 +15,30 @@ $(document).ready(function(){
 	});
 
     for (let i = 0; i < 17; i++) {
-        $('#id_work_id-' + i + '-count').blur(calc);
-        $('#id_work_id-' + i + '-price').blur(calc);
+        $('#id_work_id-' + i + '-is_out').blur(calc_work_order);
+        $('#id_work_id-' + i + '-count').blur(calc_work_order);
+        $('#id_work_id-' + i + '-price').blur(calc_work_order);
     }
-    $('#id_adjust').blur(calc);
+    $('#id_adjust').blur(calc_work_order);
+
+    calc_work_order();
+
+    const inputElements = document.querySelectorAll('input[type="text"], input[type="number"], input[type="date"]');
+	inputElements.forEach(inputElement => {
+		inputElement.classList.add('form-control');
+	});
 });
 
 /**
- * 計算する
+ * 伝票金額計算する
  */
-function calc() {
+function calc_work_order() {
     // 明細行の金額算出と足しこみ
     let g_total = 0;
     for (let i = 0; i < 17; i++) {
-        const row_total = 
-            Number($('#id_work_id-' + i + '-count').val()) * Number($('#id_work_id-' + i + '-price').val());
+        // 伝票出力対象かどうかチェック
+        if (!$('#id_work_id-' + i + '-is_out').prop("checked")) continue;
+        const row_total = Number($('#id_work_id-' + i + '-count').val()) * Number($('#id_work_id-' + i + '-price').val());
         g_total = g_total + row_total;
         $('#id_work_id-' + i + '-total').val(row_total);
     }

@@ -22,6 +22,11 @@ $(document).ready(function(){
     $('#id_adjust').blur(calc_invoice);
 
     calc_invoice();
+
+    const inputElements = document.querySelectorAll('input[type="text"], input[type="number"], input[type="date"]');
+	inputElements.forEach(inputElement => {
+		inputElement.classList.add('form-control');
+	});
 });
 
 /**
