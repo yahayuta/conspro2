@@ -24,4 +24,5 @@ urlpatterns = [
     path('rental_order/new/', rental.rental_order_new, name='rental_order_new'),
     path('rental_order/edit/<int:pk>/', rental.rental_order_edit, name='rental_order_edit'),
     path('rental_order/download_rental_ordersheet/<int:id>/', rental.download_rental_ordersheet, name='download_rental_ordersheet'),
+    path('rental_order/download_rental_invoice/<int:id>/', rental.download_rental_invoice, name='download_rental_invoice'),
 ]

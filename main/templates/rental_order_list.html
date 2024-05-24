@@ -57,6 +57,7 @@
                 <td>
                     <a href="{% url 'rental_order_edit' pk=rental_order.pk %}" class="btn btn-primary">編集</a><br>
                     <a href="{% url 'download_rental_ordersheet' id=rental_order.pk %}" class="btn btn-primary">出庫・返却伝票</a>
+                    <a href="{% url 'download_rental_invoice' id=rental_order.pk %}" class="btn btn-primary">請求書</a>
                 </td>
             </tr>
         {% endfor %}

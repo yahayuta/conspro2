@@ -76,3 +76,8 @@ def rental_order_edit(request, pk):
 @login_required
 def download_rental_ordersheet(request, id):
     return rental_xls_handler.create_rental_ordersheet(id)
+
+# 請求書出力
+@login_required
+def download_rental_invoice(request, id):
+    return rental_xls_handler.create_rental_invoice(id)
