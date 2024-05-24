@@ -4,16 +4,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="../top/">トップ</a>
+                    <a class="nav-link" href="{% url 'top' %}">トップ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../inventory/">在庫管理</a>
+                    <a class="nav-link" href="{% url 'inventory_list' %}">在庫管理</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../rental_order/">レンタル管理</a>
+                    <a class="nav-link" href="{% url 'rental_order_list' %}">レンタル管理</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../work/">作業管理</a>
+                    <a class="nav-link" href="{% url 'work_list' %}">作業管理</a>
                 </li>
             </ul>
             <input type="submit" value="ログアウト">
