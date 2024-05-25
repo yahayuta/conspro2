@@ -93,6 +93,10 @@ def create_rental_invoice(rental_order_id):
         sheet['J'+str(row)] = rental_order_row.count * rental_order_row.price
         sheet['K'+str(row)] = rental_order_row.memo
         row = row + 2
+
+    # 請求日設定
+    rental_order.request_date = datetime.date.today()
+    rental_order.save()
         
     # Excelを返すためにcontent_typeに「application/vnd.ms-excel」をセットします。
     response = HttpResponse(content_type='application/vnd.ms-excel')

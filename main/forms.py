@@ -54,6 +54,7 @@ class RentalOrderCreateForm(forms.ModelForm):
             'in_date': forms.NumberInput(attrs={"type":"date"}),
             'start_date': forms.NumberInput(attrs={"type":"date"}),
             'end_date': forms.NumberInput(attrs={"type":"date"}),
+            'request_date': forms.NumberInput(attrs={"type":"date"}),
         }
 
     def clean_rental_inventory(self):
