@@ -42,6 +42,7 @@ class WorkListView(LoginRequiredMixin, ListView):
     template_name = 'work_list.html'
     paginate_by = 5
 
+# 新規作成
 @login_required
 def work_new(request):
     form = WorkCreateForm(request.POST or None)
@@ -60,6 +61,7 @@ def work_new(request):
 
     return render(request, 'work_edit.html', context)
 
+# 更新
 @login_required
 def work_edit(request, pk):
     work = get_object_or_404(Work, pk=pk)
@@ -77,6 +79,7 @@ def work_edit(request, pk):
 
     return render(request, 'work_edit.html', context)
 
+# 請求書出力
 @login_required
 def download_invoice(request, id):
     return work_xls_handler.create_work_invoice(id)

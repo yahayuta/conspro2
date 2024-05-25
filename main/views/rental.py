@@ -37,6 +37,7 @@ class RentalOrderListView(LoginRequiredMixin, ListView):
     template_name = 'rental_order_list.html'
     paginate_by = 5
 
+# 新規作成
 @login_required
 def rental_order_new(request):
     form = RentalOrderCreateForm(request.POST or None)
@@ -55,6 +56,7 @@ def rental_order_new(request):
 
     return render(request, 'rental_order_edit.html', context)
 
+# 更新
 @login_required
 def rental_order_edit(request, pk):
     rental_order = get_object_or_404(RentalOrder, pk=pk)
