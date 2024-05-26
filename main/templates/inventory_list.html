@@ -15,7 +15,7 @@
 {% include 'nav.html' %}
     <h1>在庫一覧</h1>
 <form>
-    <div><table class="table table-bordered table-sm caption-top"><caption>検索条件</caption>{{ filter.form.as_table }}</table></div>
+    <div class="table-responsive"><table class="table table-bordered table-sm caption-top"><caption>検索条件</caption>{{ filter.form.as_table }}</table></div>
     <div>
         <input type="button" value="検索" onclick="search()" class="btn btn-secondary">
         <a href="{% url 'inventory_new' %}" class="btn btn-primary">新規登録</a>

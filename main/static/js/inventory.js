@@ -16,6 +16,11 @@ $(document).ready(function() {
 	inputElements.forEach(inputElement => {
 		inputElement.classList.add('form-control');
 	});
+
+	const ths = document.querySelectorAll('th');
+	ths.forEach(th => {
+		th.classList.add('text-nowrap');
+	});
 });
 
 /**
