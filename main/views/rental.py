@@ -7,7 +7,7 @@ from django_filters.views import FilterView
 
 from ..models import RentalOrder
 from ..filters import RentalOrderFilter
-from ..forms import RentalOrderCreateForm, RentalOrderRowFormset
+from ..forms import RentalOrderEditForm, RentalOrderRowFormset
 from ..service import rental_xls_handler
 
 # 検索一覧画面
@@ -39,7 +39,7 @@ class RentalOrderListView(LoginRequiredMixin, ListView):
 
 @login_required
 def rental_order_new(request):
-    form = RentalOrderCreateForm(request.POST or None)
+    form = RentalOrderEditForm(request.POST or None)
     context = {'form': form}
     if request.method == 'POST' and form.is_valid():
         rental_order = form.save(commit=False)
@@ -58,7 +58,7 @@ def rental_order_new(request):
 @login_required
 def rental_order_edit(request, pk):
     rental_order = get_object_or_404(RentalOrder, pk=pk)
-    form = RentalOrderCreateForm(request.POST or None, instance=rental_order)
+    form = RentalOrderEditForm(request.POST or None, instance=rental_order)
     formset = RentalOrderRowFormset(request.POST or None, instance=rental_order)
     if request.method == 'POST' and form.is_valid() and formset.is_valid():
         form.save()
