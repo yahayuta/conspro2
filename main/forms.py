@@ -3,15 +3,17 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
 
-from .models import Inventory
+from .models import Inventory, InventoryOrderRow
 from .models import Work, WorkRow
 from .models import RentalOrder, RentalOrderRow
 
+# ログインフォーム
 class LoginForm(AuthenticationForm):
     class Meta:
         model = User
         fields = ['username', 'password']
 
+# 在庫注文編集フォーム
 class InventoryEditForm(forms.ModelForm):
     class Meta:
         model = Inventory
@@ -23,8 +25,14 @@ class InventoryEditForm(forms.ModelForm):
             'sell_pay_date': forms.NumberInput(attrs={"type":"date"}),
         }
 
-class WorkCreateForm(forms.ModelForm):
+InventoryOrderRowFormset = forms.inlineformset_factory(
+    Inventory, InventoryOrderRow, fields='__all__',
+    extra=17, max_num=17
+)
 
+# 作業編集フォーム
+class WorkEditForm(forms.ModelForm):
+ 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
@@ -39,7 +47,8 @@ WorkRowFormset = forms.inlineformset_factory(
     extra=17, max_num=17
 )
 
-class RentalOrderCreateForm(forms.ModelForm):
+# レンタル注文編集フォーム
+class RentalOrderEditForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

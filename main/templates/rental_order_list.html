@@ -15,7 +15,7 @@
 {% include 'nav.html' %}
 <form>
     <h1>レンタル注文一覧</h1>
-    <div><table class="table table-bordered table-sm caption-top"><caption>検索条件</caption>{{ filter.form.as_table }}</table></div>
+    <div class="table-responsive"><table class="table table-bordered table-sm caption-top"><caption>検索条件</caption>{{ filter.form.as_table }}</table></div>
     <div>
         <input type="submit" value="検索" class="btn btn-secondary">
         <a href="{% url 'rental_order_new' %}" class="btn btn-primary">新規登録</a>
@@ -26,18 +26,18 @@
         <caption>検索結果</caption>
         <thead>
             <tr>
-                <th scope="col">レンタル注文ID</th>
-                <th scope="col">請求日</th>
-                <th scope="col">締め日</th>
-                <th scope="col">レンタル在庫</th>
-                <th scope="col">顧客</th>
-                <th scope="col">注文区分</th>
-                <th scope="col">出庫日</th>
-                <th scope="col">返却日</th>
-                <th scope="col">レンタル開始日</th>
-                <th scope="col">レンタル終了日</th>
-                <th scope="col">総合計</th>
-                <th scope="col">操作</th>
+                <th scope="col" class="text-nowrap">レンタル注文ID</th>
+                <th scope="col" class="text-nowrap">請求日</th>
+                <th scope="col" class="text-nowrap">締め日</th>
+                <th scope="col" class="text-nowrap">レンタル在庫</th>
+                <th scope="col" class="text-nowrap">顧客</th>
+                <th scope="col" class="text-nowrap">注文区分</th>
+                <th scope="col" class="text-nowrap">出庫日</th>
+                <th scope="col" class="text-nowrap">返却日</th>
+                <th scope="col" class="text-nowrap">レンタル開始日</th>
+                <th scope="col" class="text-nowrap">レンタル終了日</th>
+                <th scope="col" class="text-nowrap">総合計</th>
+                <th scope="col" class="text-nowrap">操作</th>
             </tr>
         </thead>
         <tbody>
