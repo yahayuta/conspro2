@@ -1,17 +1,12 @@
-import openpyxl
-import time
-import datetime
-
-from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from ..models import Work, WorkRow
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from ..forms import WorkCreateForm, WorkRowFormset
 from django.shortcuts import render, redirect, get_object_or_404
-
 from django_filters.views import FilterView
+
+from ..models import Work
+from ..forms import WorkEditForm, WorkRowFormset
 from ..filters import WorkFilter
 from ..service import work_xls_handler
 
@@ -45,7 +40,7 @@ class WorkListView(LoginRequiredMixin, ListView):
 # 新規作成
 @login_required
 def work_new(request):
-    form = WorkCreateForm(request.POST or None)
+    form = WorkEditForm(request.POST or None)
     context = {'form': form}
     if request.method == 'POST' and form.is_valid():
         work = form.save(commit=False)
@@ -65,7 +60,7 @@ def work_new(request):
 @login_required
 def work_edit(request, pk):
     work = get_object_or_404(Work, pk=pk)
-    form = WorkCreateForm(request.POST or None, instance=work)
+    form = WorkEditForm(request.POST or None, instance=work)
     formset = WorkRowFormset(request.POST or None, instance=work)
     if request.method == 'POST' and form.is_valid() and formset.is_valid():
         form.save()
