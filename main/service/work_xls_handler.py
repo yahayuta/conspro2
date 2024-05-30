@@ -72,7 +72,9 @@ def create_work_invoice(id):
         sheet_order['F'+str(row)] = work_row.count
         sheet_order['G'+str(row)] = work_row.price
         sheet_order['I'+str(row)] = work_row.parts_delivery_date
-        sheet_order['J'+str(row)] = work_row.client.name
+        
+        if work_row.client:
+            sheet_order['J'+str(row)] = work_row.client.name
 
         row = row + 2
 
