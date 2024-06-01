@@ -42,8 +42,17 @@ class WorkEditForm(forms.ModelForm):
         model = Work
         fields = '__all__'
 
+# 作業明細編集フォーム
+class WorkRowForm(forms.ModelForm):
+    class Meta:
+        model = WorkRow
+        fields = '__all__'
+        widgets = {
+            'parts_delivery_date': forms.NumberInput(attrs={"type": "date"}),
+        }
+
 WorkRowFormset = forms.inlineformset_factory(
-    Work, WorkRow, fields='__all__',
+    Work, WorkRow, form=WorkRowForm,
     extra=17, max_num=17
 )
 
