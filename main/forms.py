@@ -13,7 +13,7 @@ class LoginForm(AuthenticationForm):
         model = User
         fields = ['username', 'password']
 
-# 在庫注文編集フォーム
+# 在庫編集フォーム
 class InventoryEditForm(forms.ModelForm):
     class Meta:
         model = Inventory
@@ -24,10 +24,14 @@ class InventoryEditForm(forms.ModelForm):
             'order_pay_date': forms.NumberInput(attrs={"type":"date"}),
             'sell_pay_date': forms.NumberInput(attrs={"type":"date"}),
         }
-
+        
+# 在庫注文明細フォームセット
 InventoryOrderRowFormset = forms.inlineformset_factory(
-    Inventory, InventoryOrderRow, fields='__all__',
-    extra=17, max_num=17
+    Inventory, 
+    InventoryOrderRow, 
+    fields='__all__', 
+    extra=17, 
+    max_num=17
 )
 
 # 作業編集フォーム
@@ -51,9 +55,13 @@ class WorkRowForm(forms.ModelForm):
             'parts_delivery_date': forms.NumberInput(attrs={"type": "date"}),
         }
 
+# 作業明細フォームセット
 WorkRowFormset = forms.inlineformset_factory(
-    Work, WorkRow, form=WorkRowForm,
-    extra=17, max_num=17
+    Work, 
+    WorkRow, 
+    form=WorkRowForm,
+    extra=17, 
+    max_num=17
 )
 
 # レンタル注文編集フォーム
@@ -122,8 +130,12 @@ class RentalOrderEditForm(forms.ModelForm):
             RentalOrderRow.objects.create(rental_order=rental_order, name="返却運賃")
 
         return rental_order
-    
+
+# レンタル注文明細フォームセット
 RentalOrderRowFormset = forms.inlineformset_factory(
-    RentalOrder, RentalOrderRow, fields='__all__',
-    extra=17, max_num=17
+    RentalOrder, 
+    RentalOrderRow, 
+    fields='__all__',
+    extra=17, 
+    max_num=17
 )
