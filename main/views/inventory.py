@@ -1,14 +1,15 @@
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import DeleteView
+from django.shortcuts import render, redirect, get_object_or_404
 from django_filters.views import FilterView
 from django.urls import reverse_lazy
 
 from ..models import Inventory
 from ..filters import InventoryFilter
 from ..service import inventory_xls_handler
-from ..forms import InventoryEditForm
+from ..forms import InventoryEditForm, InventoryOrderRowFormset
 
 # 検索一覧画面
 class InventoryFilterView(LoginRequiredMixin, FilterView):
@@ -38,17 +39,42 @@ class InventoryListView(LoginRequiredMixin, ListView):
     paginate_by = 5
 
 # 新規作成
-class InventoryCreateView(LoginRequiredMixin, CreateView):
-    form_class = InventoryEditForm
-    template_name = 'inventory_edit.html'
-    model = Inventory
+@login_required
+def inventory_new(request):
+    form = InventoryEditForm(request.POST or None)
+    context = {'form': form}
+    if request.method == 'POST' and form.is_valid():
+        work = form.save(commit=False)
+        formset = InventoryOrderRowFormset(request.POST, instance=work)
+        if formset.is_valid():
+            work.save()
+            formset.save()
+            return redirect('inventory_list')
+        else:
+            context['formset'] = formset
+    else:
+        context['formset'] = InventoryOrderRowFormset()
+
+    return render(request, 'inventory_edit.html', context)
 
 # 更新
-class InventoryUpdateView(LoginRequiredMixin, UpdateView):
-    form_class = InventoryEditForm
-    template_name = 'inventory_edit.html'
-    model = Inventory
-    
+@login_required
+def inventory_edit(request, pk):
+    inventory = get_object_or_404(Inventory, pk=pk)
+    form = InventoryEditForm(request.POST or None, instance=inventory)
+    formset = InventoryOrderRowFormset(request.POST or None, instance=inventory)
+    if request.method == 'POST' and form.is_valid() and formset.is_valid():
+        form.save()
+        formset.save()
+        return redirect('inventory_list')
+
+    context = {
+        'form': form,
+        'formset': formset
+    }
+
+    return render(request, 'inventory_edit.html', context)
+
 # 削除
 class InventoryDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'inventory_edit.html'
