@@ -71,7 +71,7 @@ def create_jpinvoice(inventory_ids):
         sheet['C2'] = f"〒 {str(buyer.zip)[0:3]}-{str(buyer.zip)[3:]}"
         sheet['C3'] = buyer.address
         sheet['C4'] = f"{buyer.name}　御中"
-        sheet['C5'] = f"{buyer.pic1}　様"
+        sheet['C5'] = f"{buyer.pic}　様"
 
         sheet[f"B{str(start_row)}"] = inventory.name
         sheet[f"B{str(start_row + 1)}"] = inventory.serial_no
