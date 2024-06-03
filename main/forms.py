@@ -25,6 +25,22 @@ class InventoryEditForm(forms.ModelForm):
             'sell_pay_date': forms.NumberInput(attrs={"type":"date"}),
         }
         
+    def save(self, commit=True):
+        inventory = super().save(commit=False)
+
+        is_new_instance = self.instance.pk is None
+
+        if commit:
+            inventory.save()
+        
+        if is_new_instance:
+
+            inventory.save()
+
+            InventoryOrderRow.objects.create(inventory=inventory, name=f"{inventory.name}/{inventory.serial_no}", price=inventory.sell_price, total=inventory.sell_price)
+
+        return inventory
+    
 # 在庫注文明細フォームセット
 InventoryOrderRowFormset = forms.inlineformset_factory(
     Inventory, 
