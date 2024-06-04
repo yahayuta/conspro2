@@ -19,9 +19,12 @@ class InventoryFilter(FilterSet):
             ('type_id', 'type_id'),
             ('manufacturer_id', 'manufacturer_id'),
             ('name', 'name'),
-            ('year', 'year'),
             ('serial_no', 'serial_no'),
-            ('hours', 'hours'),
+            ('seller', 'seller'),
+            ('buyer', 'buyer'),
+            ('order_pay_date', 'order_pay_date'),
+            ('sell_pay_date', 'sell_pay_date'),
+            ('sell_month', 'sell_month'),
         ),
         field_labels={
             'status': 'ステータス',
@@ -29,16 +32,19 @@ class InventoryFilter(FilterSet):
             'type_id': '機械分類',
             'manufacturer_id': 'メーカー',
             'name': '型式',
-            'year': '年式',
             'serial_no': '号機',
-            'hours': '稼働時間',
+            'seller': '仕入先',
+            'buyer': '販売先',
+            'order_pay_date': '仕入代金支払日',
+            'sell_pay_date': '売上入金日',
+            'sell_month': '売上月',
         },
         label='並び順'
     )
 
     class Meta:
         model = Inventory
-        fields = ('company_id', 'status', 'type_id', 'manufacturer_id', 'name', 'year', 'serial_no', 'hours', 'buyer', 'order_pay_date', 'sell_pay_date', 'sell_month')
+        fields = ('company_id', 'status', 'type_id', 'manufacturer_id', 'name', 'serial_no', 'seller', 'buyer')
 
 # 作業モデルフィルター
 class WorkFilter(FilterSet):
