@@ -24,19 +24,29 @@ class InventoryEditForm(forms.ModelForm):
             'order_pay_date': forms.NumberInput(attrs={"type":"date"}),
             'sell_pay_date': forms.NumberInput(attrs={"type":"date"}),
         }
-        
+
+    def clean(self):
+        cleaned_data = super().clean()
+        status = cleaned_data.get("status")
+
+        # 現在のインスタンスのステータスをチェック
+        if self.instance and self.instance.pk:
+            current_status = Inventory.objects.get(pk=self.instance.pk).status
+            if current_status == '3' and status != '3':
+                raise forms.ValidationError("ステータスがレンタル出庫中の場合ステータスは変更できません")
+
+        return cleaned_data
+    
     def save(self, commit=True):
         inventory = super().save(commit=False)
-
         is_new_instance = self.instance.pk is None
 
         if commit:
             inventory.save()
         
         if is_new_instance:
-
+            # Ensure Inventory is saved before creating InventoryOrderRow instances
             inventory.save()
-
             InventoryOrderRow.objects.create(inventory=inventory, name=f"{inventory.name}/{inventory.serial_no}", price=inventory.sell_price, total=inventory.sell_price)
 
         return inventory
