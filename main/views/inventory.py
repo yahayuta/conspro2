@@ -88,12 +88,10 @@ def download_ordersheet(request, id):
 
 # 請求書出力
 @login_required
-def download_jpinvoice(request):
-    inventory_ids = request.POST.getlist('inventory_ids')
-    return inventory_xls_handler.create_jpinvoice(inventory_ids)
+def download_jpinvoice(request, id):
+    return inventory_xls_handler.create_jpinvoice(id)
 
 # Proforma Invoice出力
 @login_required
-def download_proforma_invoice(request):
-    inventory_ids = request.POST.getlist('inventory_ids')
-    return inventory_xls_handler.create_proforma_invoice(inventory_ids)
+def download_proforma_invoice(request, id):
+    return inventory_xls_handler.create_proforma_invoice(id)
