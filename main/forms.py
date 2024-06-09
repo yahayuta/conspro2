@@ -133,6 +133,9 @@ class RentalOrderEditForm(forms.ModelForm):
             rental_order.rental_inventory.status = '3'
             rental_order.rental_inventory.save()
 
+            # 開始アワーをレンタル注文に設定しておく
+            rental_order.hours_start = rental_order.rental_inventory.hours
+
         # 返却日が設定された場合空車にする
         if existing_in_date is None and rental_order.in_date and rental_order.rental_inventory.status == '3':
             rental_order.rental_inventory.status = '2'
