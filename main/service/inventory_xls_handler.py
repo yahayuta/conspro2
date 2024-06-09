@@ -9,7 +9,7 @@ from ..models import Inventory
 def create_ordersheet(inventory_id):
     inventory = Inventory.objects.get(pk=inventory_id)
     company = inventory.company
-    print(company)
+    seller = inventory.seller
 
     # Excelのテンプレートファイルの読み込み
     wb = openpyxl.load_workbook('/django/main/static/tpl/OrderSheet.xlsx')
@@ -23,12 +23,11 @@ def create_ordersheet(inventory_id):
     sheet['K7'] = company.address
     sheet['K9'] = f"電話：{company.tel}　FAX：{company.fax}"
 
-    seller = inventory.seller
-
-    sheet['B5'] = f"{seller.name} 御中"
-    sheet['B7'] = f"〒 {str(seller.zip)[0:3]}-{str(seller.zip)[3:]}"
-    sheet['B8'] = seller.address
-    sheet['B10'] = sheet['K9'] = f"電話：{seller.tel}　FAX：{seller.fax}"
+    if seller:
+        sheet['B5'] = f"{seller.name} 御中"
+        sheet['B7'] = f"〒 {str(seller.zip)[0:3]}-{str(seller.zip)[3:]}"
+        sheet['B8'] = seller.address
+        sheet['B10'] = sheet['K9'] = f"電話：{seller.tel}　FAX：{seller.fax}"
 
     sheet['B23'] = inventory.name
     sheet['B24'] = inventory.serial_no
@@ -67,10 +66,11 @@ def create_jpinvoice(inventory_id):
     sheet['L10'] = f"FAX：{company.fax}"
     sheet_inv['L6'] = f"登録番号 {company.registration_number}"
 
-    sheet['C2'] = f"〒 {str(buyer.zip)[0:3]}-{str(buyer.zip)[3:]}"
-    sheet['C3'] = buyer.address
-    sheet['C4'] = f"{buyer.name}　御中"
-    sheet['C5'] = f"{buyer.pic}　様"
+    if buyer:
+        sheet['C2'] = f"〒 {str(buyer.zip)[0:3]}-{str(buyer.zip)[3:]}"
+        sheet['C3'] = buyer.address
+        sheet['C4'] = f"{buyer.name}　御中"
+        sheet['C5'] = f"{buyer.pic}　様"
 
     sheet[f"B{str(start_row)}"] = inventory.name
     sheet[f"B{str(start_row + 1)}"] = inventory.serial_no
@@ -100,15 +100,17 @@ def create_proforma_invoice(inventory_id):
     start_row = 18
     inventory = Inventory.objects.get(pk=inventory_id)
     company = inventory.company
-    seller = inventory.seller
+    buyer = inventory.buyer
+    
     sheet['B1'] = company.name_en
     sheet['B2'] = company.address_en
     sheet['B3'] = f"TEL: {company.tel_en}   FAX: {company.fax_en}"
 
-    sheet['D7'] = f"{seller.name}"
-    sheet['D8'] = seller.address
-    sheet['D10'] = f"TEL: {seller.tel}"
-    sheet['F10'] = f"FAX: {seller.fax}"
+    if buyer:
+        sheet['D7'] = f"{buyer.name}"
+        sheet['D8'] = buyer.address
+        sheet['D10'] = f"TEL: {buyer.tel}"
+        sheet['F10'] = f"FAX: {buyer.fax}"
 
     sheet[f"B{str(start_row)}"] = f"MODEL:{inventory.name}"
     sheet[f"B{str(start_row + 1)}"] = f"S/N:{inventory.serial_no}"
