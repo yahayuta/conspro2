@@ -24,6 +24,12 @@ python manage.py showmigrations
 docker exec -it conspro2 bash
 docker logs -f conspro2
 ```
+
+## バッチ
+```sh
+python manage.py inventory_close
+```
+
 ## 画面起動
 https://localhost:3443/  
 https://localhost:3443/admin/  

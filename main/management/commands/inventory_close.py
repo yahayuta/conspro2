@@ -11,4 +11,5 @@ class Command(BaseCommand):
             'status': '0',
         }
         found_objects = Inventory.objects.filter(**filter_conditions)
-        found_objects.update(status='1')
+        print(found_objects)
+        print(found_objects.update(status='1'))
