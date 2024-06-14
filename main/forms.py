@@ -2,11 +2,34 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
+from datetime import datetime
 
 from .models import Inventory, InventoryOrderRow
 from .models import Work, WorkRow
 from .models import RentalOrder, RentalOrderRow
 
+# 年月用カスタムフィールド
+class MonthYearField(forms.DateField):
+    def to_python(self, value):
+        if not value:
+            return None
+        try:
+            return datetime.strptime(value, '%Y-%m').date()
+        except ValueError:
+            raise forms.ValidationError("日付を正しく入力してください。")
+
+    def strptime(self, value, format):
+        return datetime.strptime(value, format).date()
+
+# 年月用カスタムWidget
+class MonthYearWidget(forms.DateInput):
+    input_type = 'month'
+
+    def format_value(self, value):
+        if value is None:
+            return ''
+        return value.strftime('%Y-%m')
+    
 # ログインフォーム
 class LoginForm(AuthenticationForm):
     class Meta:
@@ -15,11 +38,17 @@ class LoginForm(AuthenticationForm):
 
 # 在庫編集フォーム
 class InventoryEditForm(forms.ModelForm):
+
+    sell_month = MonthYearField(
+        widget=MonthYearWidget(attrs={'type': 'month'}),
+        label="売上月",
+        required=False
+    )
+        
     class Meta:
         model = Inventory
         fields = '__all__'
         widgets = {
-            'sell_month': forms.NumberInput(attrs={"type":"date"}),
             'order_date': forms.NumberInput(attrs={"type":"date"}),
             'order_pay_date': forms.NumberInput(attrs={"type":"date"}),
             'sell_pay_date': forms.NumberInput(attrs={"type":"date"}),
