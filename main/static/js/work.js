@@ -7,9 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 });
 
-// ロード時にイベントハンドラを仕掛ける
 $(document).ready(function(){
-
     $('.select_search').select2({
 		language: "ja" //日本語化
 	});

@@ -10,9 +10,12 @@
 <body>
 {% include 'nav.html' %}
     <h1>在庫登録／編集</h1>
-    <div><a href="{% url 'inventory_list' %}" class="btn btn-primary">戻る</a></div>
     <form method="post">
-        <div><input type="button" value="計算" class="btn btn-secondary" onclick="autoSum(this.form)"></div>
+        <div>
+            <input type="submit" value="確定" class="btn btn-secondary">
+            <input type="button" value="計算" class="btn btn-secondary" onclick="autoSum(this.form)">
+            <a href="{% url 'inventory_list' %}" class="btn btn-primary">戻る</a>
+        </div>
         {% csrf_token %}
         <div class="table-responsive"><table class="table table-striped table-bordered table-sm caption-top"><caption>在庫内容</caption>{{ form.as_table }}</table></div>
         <div class="table-responsive">
@@ -47,8 +50,6 @@
             </table>
         </div>
         {{ formset.management_form }}
-
-        <div><input type="submit" value="確定" class="btn btn-secondary"></div>
     </form>
 </body>
 </html>

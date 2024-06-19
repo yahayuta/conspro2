@@ -11,7 +11,11 @@
 {% include 'nav.html' %}
     <form action="" method="post">
         <h2>作業登録／編集</h2>
-        <div><input type="submit" value="確定" class="btn btn-secondary"><a href="javascript:calc_work_order();" class="btn btn-primary">計算</a><a href="{% url 'work_list' %}" class="btn btn-primary">戻る</a></div>
+        <div>
+            <input type="submit" value="確定" class="btn btn-secondary">
+            <a href="javascript:calc_work_order();" class="btn btn-primary">計算</a>
+            <a href="{% url 'work_list' %}" class="btn btn-primary">戻る</a>
+        </div>
         <div class="table-responsive">
             <table class="table table-striped table-bordered table-sm caption-top">
             <caption>作業内容</caption>
