@@ -24,9 +24,7 @@
             <tr>
                 <th scope="col" class="text-nowrap">作業ID</th>
                 <th scope="col" class="text-nowrap">ステータス</th>
-                <th scope="col" class="text-nowrap">型式</th>
-                <th scope="col" class="text-nowrap">号機</th>
-                <th scope="col" class="text-nowrap">顧客</th>
+                <th scope="col" class="text-nowrap">機種-型-号機</th>
                 <th scope="col" class="text-nowrap">作業名</th>
                 <th scope="col" class="text-nowrap">総合計</th>
                 <th scope="col" class="text-nowrap">操作</th>
@@ -37,6 +35,7 @@
             <tr>
                 <td scope="row">{{ work.id }}</td>
                 <td>{{ work.get_status_display }}</td>
+                <td>{{ work.work_inventory.id|default:"" }}<br>{{ work.work_inventory.name|default:"" }}<br>{{ work.work_inventory.serial_no|default:"" }}</td>
                 <td>{{ work.machine_name }}</td>
                 <td>{{ work.serial_no }}</td>
                 <td>{{ work.client }}</td>

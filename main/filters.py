@@ -50,22 +50,18 @@ class InventoryFilter(FilterSet):
 class WorkFilter(FilterSet):
 
     name = filters.CharFilter(label='作業名', lookup_expr='contains')
-    machine_name = filters.CharFilter(label='型式', lookup_expr='contains')
-    serial_no = filters.CharFilter(label='号機', lookup_expr='contains')
 
     order_by = MyOrderingFilter(
         fields=(
             ('status', 'status'),
             ('name', 'name'),
-            ('machine_name', 'machine_name'),
-            ('serial_no', 'serial_no'),
+            ('work_inventory', 'work_inventory'),
             ('client_id', 'client_id'),
         ),
         field_labels={
             'status': 'ステータス',
             'name': '作業名',
-            'machine_name': '型式',
-            'serial_no': '号機',
+            'work_inventory': '機種-型-号機',
             'client_id': '顧客',
         },
         label='並び順'
@@ -73,7 +69,7 @@ class WorkFilter(FilterSet):
 
     class Meta:
         model = Work
-        fields = ('status', 'name', 'machine_name', 'serial_no', 'client_id')
+        fields = ('status', 'name', 'work_inventory', 'client_id')
 
 # レンタル注文モデルフィルター
 class RentalOrderFilter(FilterSet):
