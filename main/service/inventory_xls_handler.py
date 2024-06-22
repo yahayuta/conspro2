@@ -3,7 +3,7 @@ import datetime
 import time
 
 from django.http import HttpResponse
-from ..models import Inventory
+from ..models import Inventory, InventoryOrderRow
 
 # 発注書出力
 def create_ordersheet(inventory_id):
@@ -54,7 +54,6 @@ def create_jpinvoice(inventory_id):
     sheet['K1'] = int(time.time())
     sheet['K2'] = datetime.date.today().strftime("%Y-%m-%d")
 
-    start_row = 18
     inventory = Inventory.objects.get(pk=inventory_id)
     company = inventory.company
     buyer = inventory.buyer
@@ -72,11 +71,21 @@ def create_jpinvoice(inventory_id):
         sheet['C4'] = f"{buyer.name}　御中"
         sheet['C5'] = f"{buyer.pic}　様"
 
-    sheet[f"B{str(start_row)}"] = inventory.name
-    sheet[f"B{str(start_row + 1)}"] = inventory.serial_no
-    sheet[f"G{str(start_row)}"] = 1
-    sheet[f"H{str(start_row)}"] = "台"
-    sheet[f"I{str(start_row)}"] = inventory.sell_price
+    # 在庫販売明細
+    inventory_order_rows =  InventoryOrderRow.objects.filter(inventory_id=inventory_id)
+
+    row=18
+    for inventory_order_row in inventory_order_rows:
+        # 出力対象のみ
+        if inventory_order_row.is_out == False:
+            continue
+
+        sheet['B'+str(row)] = inventory_order_row.name
+        sheet['G'+str(row)] = inventory_order_row.count
+        sheet['I'+str(row)] = inventory_order_row.price
+        sheet['J'+str(row)] = inventory_order_row.count * inventory_order_row.price
+        sheet['K'+str(row)] = inventory_order_row.memo
+        row = row + 2
 
     # Excelを返すためにcontent_typeに「application/vnd.ms-excel」をセットします。
     response = HttpResponse(content_type='application/vnd.ms-excel')
