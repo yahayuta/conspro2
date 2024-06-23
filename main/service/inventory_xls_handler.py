@@ -121,11 +121,20 @@ def create_proforma_invoice(inventory_id):
         sheet['D10'] = f"TEL: {buyer.tel}"
         sheet['F10'] = f"FAX: {buyer.fax}"
 
-    sheet[f"B{str(start_row)}"] = f"MODEL:{inventory.name}"
-    sheet[f"B{str(start_row + 1)}"] = f"S/N:{inventory.serial_no}"
-    sheet[f"F{str(start_row)}"] = 1
-    sheet[f"G{str(start_row)}"] = "UNIT"
-    sheet[f"H{str(start_row)}"] = inventory.sell_price
+    # 在庫販売明細
+    inventory_order_rows =  InventoryOrderRow.objects.filter(inventory_id=inventory_id)
+
+    row=18
+    for inventory_order_row in inventory_order_rows:
+        # 出力対象のみ
+        if inventory_order_row.is_out == False:
+            continue
+
+        sheet['B'+str(row)] = inventory_order_row.name
+        sheet['F'+str(row)] = inventory_order_row.count
+        sheet['H'+str(row)] = inventory_order_row.price
+        sheet['I'+str(row)] = inventory_order_row.count * inventory_order_row.price
+        row = row + 2
 
     # Excelを返すためにcontent_typeに「application/vnd.ms-excel」をセットします。
     response = HttpResponse(content_type='application/vnd.ms-excel')
