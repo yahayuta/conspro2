@@ -66,7 +66,7 @@
                 <tbody>
                 {% for work in works %}
                     <tr>
-                        <td>{{ work.pk }}</td>
+                        <td><a href="{% url 'work_edit' pk=work.pk %}" target="_blank">{{ work.pk }}</a></td>
                         <td>{{ work.status }}</td>
                         <td>{{ work.name }}</td>
                         <td>{{ work.memo }}</td>
