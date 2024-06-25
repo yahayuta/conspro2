@@ -50,6 +50,33 @@
             </table>
         </div>
         {{ formset.management_form }}
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-sm caption-top">
+                <caption>作業履歴</caption>
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-nowrap">作業ID</th>
+                        <th scope="col" class="text-nowrap">ステータス</th>
+                        <th scope="col" class="text-nowrap">作業名</th>
+                        <th scope="col" class="text-nowrap">メモ</th>
+                        <th scope="col" class="text-nowrap">更新者</th>
+                        <th scope="col" class="text-nowrap">更新日</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for work in works %}
+                    <tr>
+                        <td>{{ work.pk }}</td>
+                        <td>{{ work.status }}</td>
+                        <td>{{ work.name }}</td>
+                        <td>{{ work.memo }}</td>
+                        <td>{{ work.modifier }}</td>
+                        <td>{{ work.modified }}</td>
+                    </tr>
+                {% endfor %}
+                <tbody>
+            </table>
+        </div>
     </form>
 </body>
 </html>

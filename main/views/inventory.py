@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django_filters.views import FilterView
 from django.urls import reverse_lazy
 
-from ..models import Inventory
+from ..models import Inventory, Work
 from ..filters import InventoryFilter
 from ..service import inventory_xls_handler
 from ..forms import InventoryEditForm, InventoryOrderRowFormset
@@ -68,9 +68,15 @@ def inventory_edit(request, pk):
         formset.save()
         return redirect('inventory_list')
 
+    # 作業履歴を取得する
+    works = Work.objects.filter(work_inventory_id=pk)
+
+    print(works)
+
     context = {
         'form': form,
-        'formset': formset
+        'formset': formset,
+        'works': works
     }
 
     return render(request, 'inventory_edit.html', context)

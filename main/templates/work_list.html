@@ -36,8 +36,6 @@
                 <td scope="row">{{ work.id }}</td>
                 <td>{{ work.get_status_display }}</td>
                 <td>{{ work.work_inventory.id|default:"" }}<br>{{ work.work_inventory.name|default:"" }}<br>{{ work.work_inventory.serial_no|default:"" }}</td>
-                <td>{{ work.machine_name }}</td>
-                <td>{{ work.serial_no }}</td>
                 <td>{{ work.client }}</td>
                 <td>{{ work.name }}</td>
                 <td>{{ work.total }}</td>

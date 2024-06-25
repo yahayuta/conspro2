@@ -43,7 +43,7 @@ def create_work_invoice(id):
         if work_row.is_out == False:
             continue
 
-        sheet['B'+str(row)] =  f'{work.machine_name},{work.serial_no}'
+        sheet['B'+str(row)] =  f'{work.work_inventory.name},{work.work_inventory.serial_no}'
         sheet['B'+str(row+1)] = work_row.name
         sheet['G'+str(row)] = work_row.count
         sheet['H'+str(row)] = work_row.price
@@ -54,7 +54,7 @@ def create_work_invoice(id):
 
     sheet_order = wb['オーダー表']
     sheet_order['C4'] = client.name
-    sheet_order['C5'] = work.serial_no
+    sheet_order['C5'] = f'{work.work_inventory.name},{work.work_inventory.serial_no}'
     sheet_order['C7'] = work.name
     row=18
 
@@ -80,7 +80,7 @@ def create_work_invoice(id):
 
     # Excelを返すためにcontent_typeに「application/vnd.ms-excel」をセットします。
     response = HttpResponse(content_type='application/vnd.ms-excel')
-    response['Content-Disposition'] = 'attachment; filename=%s' % work.machine_name + '_' + str(time.time()) + '.xlsx'
+    response['Content-Disposition'] = 'attachment; filename=%s' % f'{work.work_inventory.name}_{work.work_inventory.serial_no}' + '_' + str(time.time()) + '.xlsx'
 
     # データの書き込みを行なったExcelファイルを保存する
     wb.save(response)
