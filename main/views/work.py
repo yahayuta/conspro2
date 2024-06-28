@@ -16,7 +16,7 @@ class WorkFilterView(LoginRequiredMixin, FilterView):
     filterset_class = WorkFilter
     queryset = Work.objects.all().order_by('-created')
     strict = False
-    paginate_by = 5
+    paginate_by = 10
     template_name = 'work_list.html'
 
     # 検索条件をセッションに保存する or 呼び出す
@@ -35,7 +35,7 @@ class WorkFilterView(LoginRequiredMixin, FilterView):
 class WorkListView(LoginRequiredMixin, ListView):
     model = Work
     template_name = 'work_list.html'
-    paginate_by = 5
+    paginate_by = 10
 
 # 新規作成
 @login_required

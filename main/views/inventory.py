@@ -17,7 +17,7 @@ class InventoryFilterView(LoginRequiredMixin, FilterView):
     filterset_class = InventoryFilter
     queryset = Inventory.objects.all().order_by('-created')
     strict = False
-    paginate_by = 5
+    paginate_by = 10
     template_name = 'inventory_list.html'
 
     # 検索条件をセッションに保存する or 呼び出す
@@ -36,7 +36,7 @@ class InventoryFilterView(LoginRequiredMixin, FilterView):
 class InventoryListView(LoginRequiredMixin, ListView):
     model = Inventory
     template_name = 'inventory_list.html'
-    paginate_by = 5
+    paginate_by = 10
 
 # 新規作成
 @login_required
