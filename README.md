@@ -6,8 +6,8 @@
 # 開発環境構築
 ## コンテナ起動
 ```sh
-docker-compose build
-docker-compose up -d
+docker compose build
+docker compose up -d
 # 初回にやる
 docker exec -it conspro2 bash
 python manage.py migrate
